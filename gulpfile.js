@@ -2,30 +2,30 @@ var gulp = require('gulp');
 
 var nodemon = require('gulp-nodemon');
 
-var jsFiles = ['*.js', 'src/**/*.js'];
+var jsFiles = ['*.js', 'public/**/*.js'];
 
 gulp.task('inject', function() {
   var wiredep = require('wiredep').stream;
   var inject = require('gulp-inject');
 
-  var injectSrc = gulp.src(['./public/css/*.css', './public/js/*.js'], {
+  var injectSrc = gulp.src(['./public/assets/css/*.css', './public/assets/js/*.js'], {
     read: false,
   });
 
   var injectOptions = {
-    ignorePath: '/public',
+    ignorePath: '/public/assets',
   };
 
   var options = {
     bowerJson: require('./bower.json'),
-    directory: './public/lib',
-    ignorePath: '../../public',
+    directory: './public/assets/lib',
+    ignorePath: '../../public/assets',
   };
 
-  return gulp.src('./src/views/*.html')
+  return gulp.src('./server/views/*.ejs')
     .pipe(wiredep(options))
     .pipe(inject(injectSrc, injectOptions))
-    .pipe(gulp.dest('./src/views'));
+    .pipe(gulp.dest('./server/views'));
 });
 
 gulp.task('serve', ['inject'], function() {

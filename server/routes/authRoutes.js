@@ -43,6 +43,31 @@ var router = function(nav) {
       res.json(req.user);
     });
 
+  authRouter.route('/google/callback')
+    .get(passport.authenticate('google', {
+      successRedirect: '/auth/profile',
+      failure: '/',
+    }));
+
+  authRouter.route('/google')
+    .get(passport.authenticate('google', {
+      scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email',
+      ]
+    }));
+
+  authRouter.route('/profile')
+    .get(function(req, res) {
+      console.log('getting profile');
+      res.render('profile', {
+        user: {
+          name: req.user.displayName,
+          image: req.user._json.image.url
+        }
+      });
+    });
+
   return authRouter;
 };
 

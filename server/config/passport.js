@@ -1,6 +1,8 @@
 var passport = require('passport');
+var session = require('express-session');
 
 var passportConfig = function(app) {
+  app.use(session({secret: 'lbr'}));
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -13,6 +15,7 @@ var passportConfig = function(app) {
   });
 
   require('./strategies/local.strategy')();
+  require('./strategies/google.strategy')();
 };
 
 module.exports = passportConfig;
