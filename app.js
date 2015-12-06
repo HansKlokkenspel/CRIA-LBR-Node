@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
+var dbSeed = require('./server/config/startup/dbSeed');
 
 var nav = require('./server/config/navStructure');
 var bookRouter = require('./server/routes/bookRoutes')(nav);
@@ -39,4 +40,5 @@ app.get('/', function(request, response) {
 //start listening on the specified port
 app.listen(port, function(err) {
   console.log('running server on port ' + port);
+  dbSeed();
 });

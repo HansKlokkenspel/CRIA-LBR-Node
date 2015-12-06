@@ -22,6 +22,9 @@ var UserSchema = Schema({
   google: {
     type: Object,
   },
+  role_id: {
+    type: Schema.ObjectId,
+  },
 });
 
 UserSchema.methods.generateHash = function(password) {

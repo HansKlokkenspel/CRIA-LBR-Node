@@ -11,7 +11,7 @@ var strategy = function() {
     function(req, email, password, done) {
       process.nextTick(function() {
         var query = {
-          'local.email': email
+          'local.email': email,
         };
 
         User.findOne(query, function(err, user) {
@@ -49,7 +49,7 @@ var strategy = function() {
       console.log(email);
       console.log(password);
       var query = {
-        'local.email': email
+        'local.email': email,
       };
 
       User.findOne(query, function(err, user) {
