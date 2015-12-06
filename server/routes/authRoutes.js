@@ -4,32 +4,17 @@ var passport = require('passport');
 var authRouter = express.Router();
 
 var router = function(nav) {
-  authRouter.route('/signUp')
-    .post(function(req, res) {
-      console.log(req.body);
-
-      var url = 'mongodb://localhost:27017/libraryApp';
-      mongodb.connect(url, function(err, db) {
-        var collection = db.collection('users');
-        var user = {
-          username: req.body.username,
-          password: req.body.password,
-        };
-
-        collection.insert(user, function(err, results) {
-          req.login(results.ops[0], function() {
-            res.redirect('/user/profile');
-          });
-        });
-      });
-    });
-
-  authRouter.route('/signIn')
-    .post(passport.authenticate('local', {
+  authRouter.route('/signup')
+    .post(passport.authenticate('local-signup', {
+      successRedirect: '/user/profile',
       failureRedirect: '/',
-    }), function(req, res) {
-      res.redirect('/user/profile');
-    });
+    }));
+
+  authRouter.route('/login')
+    .post(passport.authenticate('local-login', {
+      successRedirect: '/user/profile',
+      failureRedirect: '/',
+    }));
 
   authRouter.route('/google')
     .get(passport.authenticate('google', {

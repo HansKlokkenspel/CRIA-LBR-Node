@@ -1,28 +1,75 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongodb = require('mongodb').MongoClient;
+var User = require('../../models/userModel');
 
 var strategy = function() {
-  passport.use(new LocalStrategy({
-      usernameField: 'username',
+  passport.use('local-signup', new LocalStrategy({
+      usernameField: 'email',
       passwordField: 'password',
+      passReqToCallback: true,
     },
-    function(username, password, done) {
-      var url = 'mongodb://localhost:27017/libraryApp';
-      mongodb.connect(url, function(err, db) {
-        var collection = db.collection('users');
-        collection.findOne({
-          username: username,
-        }, function(err, results) {
-          if (results.password == password) {
-            var user = results;
-            done(null, user);
+    function(req, email, password, done) {
+      process.nextTick(function() {
+        var query = {
+          'local.email': email
+        };
+
+        User.findOne(query, function(err, user) {
+          if (err) {
+            return done(err);
+          }
+
+          if (user) {
+            console.log('username has already been taken');
+            return done(null, false);
           } else {
-            done(null, false, {
-              message: 'bad password',
+            var user = new User();
+
+            user.local.email = email;
+            user.local.password = user.generateHash(password);
+
+            user.save(function(err) {
+              if (err) {
+                throw err;
+              }
+
+              return done(null, user);
             });
           }
         });
+      });
+    }));
+
+  passport.use('local-login', new LocalStrategy({
+      usernameField: 'email',
+      passwordField: 'password',
+      passReqToCallback: true,
+    },
+    function(req, email, password, done) {
+      console.log(email);
+      console.log(password);
+      var query = {
+        'local.email': email
+      };
+
+      User.findOne(query, function(err, user) {
+        if (err) {
+          return done(err);
+        }
+
+        console.log(user);
+
+        if (!user) {
+          console.log('User is not found!');
+          return done(null, false);
+        }
+
+        if (!user.validPassword(password)) {
+          console.log('The password is invalid!');
+          return done(null, false);
+        }
+
+        return done(null, user);
       });
     }));
 };
