@@ -1,5 +1,5 @@
 var mongodb = require('mongodb').MongoClient;
-var objectId = require('mongodb').ObjectID;
+var ObjectId = require('mongodb').ObjectID;
 
 var bookController = function(bookService, nav) {
   var middleware = function(req, res, next) {
@@ -30,7 +30,7 @@ var bookController = function(bookService, nav) {
   };
 
   var getById = function(req, res) {
-    var id = new objectId(req.params.id);
+    var id = new ObjectId(req.params.id);
 
     var url = 'mongodb://localhost:27017/libraryApp';
 
@@ -49,11 +49,11 @@ var bookController = function(bookService, nav) {
             book: results,
           });
         });
+
         db.close();
       });
     });
   };
-
 
   return {
     getIndex: getIndex,
