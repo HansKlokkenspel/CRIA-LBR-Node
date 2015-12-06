@@ -6,7 +6,7 @@ var router = function(nav) {
   var bookService = require('../services/goodReadsService')(nav);
   var bookController = require('../controllers/bookController')(bookService, nav);
 
-  bookRouter.use(bookController.middleware);
+  bookRouter.use('/', bookController.middleware);
 
   bookRouter.route('/')
     .get(bookController.getIndex);

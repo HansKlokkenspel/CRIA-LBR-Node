@@ -4,7 +4,8 @@ var objectId = require('mongodb').ObjectID;
 var bookController = function(bookService, nav) {
   var middleware = function(req, res, next) {
     if (!req.user) {
-      // res.redirect('/');
+      console.log('The user is not logged in!');
+      res.redirect('/');
     }
 
     next();

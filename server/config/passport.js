@@ -16,6 +16,7 @@ var passportConfig = function(app) {
 
   require('./strategies/local.strategy')();
   require('./strategies/google.strategy')();
+  require('./strategies/facebook.strategy')();
 };
 
 module.exports = passportConfig;
