@@ -22,8 +22,9 @@ var UserSchema = Schema({
   google: {
     type: Object,
   },
-  role_id: {
-    type: Schema.ObjectId,
+  role: {
+    type: Schema.Types.ObjectId,
+    ref: 'Role'
   },
 });
 
