@@ -31,8 +31,8 @@ app.set('views', 'server/views');
 
 app.set('view engine', 'ejs');
 
-app.get('/', function(request, response) {
-  response.render('index', {
+app.get('/', function(req, res) {
+  res.render('index', {
     nav: nav,
   });
 });

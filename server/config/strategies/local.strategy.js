@@ -46,8 +46,6 @@ var strategy = function() {
       passReqToCallback: true,
     },
     function(req, email, password, done) {
-      console.log(email);
-      console.log(password);
       var query = {
         'local.email': email,
       };

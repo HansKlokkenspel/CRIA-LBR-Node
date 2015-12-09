@@ -3,12 +3,12 @@ var ObjectId = require('mongodb').ObjectID;
 
 var bookController = function(bookService, nav) {
   var middleware = function(req, res, next) {
-    if (!req.user) {
-      console.log('The user is not logged in!');
-      res.redirect('/');
+    if (req.user) {
+      return next();
     }
 
-    next();
+    console.log('The user is not logged in!');
+    res.redirect('/');
   };
 
   var getIndex = function(req, res) {
