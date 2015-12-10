@@ -13,7 +13,7 @@ var router = function(nav) {
 
   userRouter.route('/profile')
     .get(function(req, res) {
-      res.render('profile', {
+      res.render('profile/profile', {
         nav: nav,
         user: {
           name: req.user.displayName,

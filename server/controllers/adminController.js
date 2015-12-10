@@ -13,7 +13,7 @@ var adminController = function() {
   };
 
   var adminHome = function(req, res) {
-    res.render('adminPanel');
+    res.render('admin/adminPanel');
   };
 
   return {
