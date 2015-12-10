@@ -55,8 +55,6 @@ var strategy = function() {
           return done(err);
         }
 
-        console.log(user);
-
         if (!user) {
           console.log('User is not found!');
           return done(null, false);

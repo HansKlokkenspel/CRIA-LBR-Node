@@ -55,15 +55,13 @@ var createUser = function(user, email, password, role) {
       'roleName': role,
     }, function(err, role) {
       newUser.role = role._id;
-      //Call to findOne is async, so save must take place in callback in order to keep
-      //the bound roleId known
+
       newUser.save(function(err) {
         if (err) {
           console.log('Something went wrong when creating a user! : ' + err);
         }
       });
     });
-
   }
 };
 
@@ -74,6 +72,5 @@ var createRole = function(role, roleName) {
     newRole.save();
   }
 };
-
 
 module.exports = dbSeed;

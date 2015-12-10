@@ -3,12 +3,13 @@ var User = require('../models/userModel');
 
 var adminController = function() {
   var middleware = function(req, res, next) {
-    if (req.user && checkUserPrivileges(req.user)) {
-      return next();
-    }
-
-    console.log('The user is not logged in!');
-    res.redirect('/');
+    checkUserPrivileges(req.user, function(valid) {
+      if (valid) {
+        return next();
+      } else {
+        res.redirect('/');
+      }
+    });
   };
 
   var adminHome = function(req, res) {
@@ -21,20 +22,23 @@ var adminController = function() {
   };
 };
 
-var checkUserPrivileges = function(user) {
+var checkUserPrivileges = function(user, cb) {
   User.findOne({
       'local.email': user.local.email,
     }).populate('role')
     .exec(function(err, user) {
       if (err) {
         console.log('Something went wrong with getting the user object! : ' + err);
-        return false;
+        cb(false);
+        return;
       } else if (user.role.roleName == 'Admin') {
         console.log('You are an admin, congratulations!');
-        return true;
+        cb(true);
+        return;
       }
 
-      return false;
+      cb(false);
+      return;
     });
 };
 
