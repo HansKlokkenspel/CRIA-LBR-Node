@@ -1,9 +1,8 @@
 var express = require('express');
-var mongodb = require('mongodb').MongoClient;
 var passport = require('passport');
 var authRouter = express.Router();
 
-var router = function(nav) {
+var router = function(routeConfig) {
   authRouter.route('/signup')
     .post(passport.authenticate('local-signup', {
       successRedirect: '/user/profile',

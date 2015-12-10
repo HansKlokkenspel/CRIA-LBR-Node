@@ -1,4 +1,5 @@
 var globalConfig = require('./server/config/utils/globalConfig')();
+var routeConfig = require('./server/config/utils/routeConfig')();
 
 var globalRoutes = globalConfig.fileLocations.routers;
 var configLocation = globalConfig.fileLocations.config;
@@ -10,11 +11,11 @@ var session = require('express-session');
 var mongoose = require('mongoose');
 var dbSeed = require(configLocation + 'startup/dbSeed');
 
-var nav = require(configLocation + 'navStructure');
+var nav = routeConfig.nav.structure;
 
-var adminRouter = require(globalRoutes + 'adminRoutes')(nav);
-var authRouter = require(globalRoutes + 'authRoutes')(nav);
-var userRouter = require(globalRoutes + 'userRoutes')(nav);
+var adminRouter = require(globalRoutes + 'adminRoutes')(routeConfig);
+var authRouter = require(globalRoutes + 'authRoutes')(routeConfig);
+var userRouter = require(globalRoutes + 'userRoutes')(routeConfig);
 
 var port = process.env.PORT || 8000;
 
@@ -27,7 +28,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 require(configLocation + 'passport/passport')(app);
 
-var routes = globalConfig.routes;
+var routes = routeConfig.routes;
 
 app.use(routes.auth, authRouter);
 app.use(routes.admin, adminRouter);

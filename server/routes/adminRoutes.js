@@ -1,7 +1,7 @@
 var express = require('express');
 var adminRouter = express.Router();
 
-var router = function(nav) {
+var router = function(routeConfig) {
   var adminController = require('../controllers/adminController')();
 
   adminRouter.use('/', adminController.middleware);

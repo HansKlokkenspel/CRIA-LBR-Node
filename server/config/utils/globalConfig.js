@@ -6,11 +6,6 @@ var globalConfig = function() {
     app:{
       appDir: appDir
     },
-    routes: {
-      auth: '/auth',
-      admin: '/admin',
-      user: '/user',
-    },
     fileLocations: {
       routers: './server/routes/',
       config: './server/config/',

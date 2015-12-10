@@ -1,26 +1,14 @@
 var express = require('express');
 var userRouter = express.Router();
 
-var router = function(nav) {
-  // var userController = require();
-  userRouter.use('/', function(req, res, next) {
-    if (!req.user) {
-      res.redirect('/');
-    }
+var router = function(routeConfig) {
+  var middlewareController = require('../controllers/middlewareController')();
+  var userController = require('../controllers/userController')(routeConfig);
 
-    next();
-  });
+  userRouter.use('/', middlewareController.middleware);
 
   userRouter.route('/profile')
-    .get(function(req, res) {
-      res.render('profile/profile', {
-        nav: nav,
-        user: {
-          name: req.user.displayName,
-          image: req.user.image,
-        },
-      });
-    });
+    .get(userController.profile);
 
   return userRouter;
 };

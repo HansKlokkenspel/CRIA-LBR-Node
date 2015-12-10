@@ -3,7 +3,7 @@ var User = require('../models/userModel');
 
 var adminController = function() {
   var middleware = function(req, res, next) {
-    checkUserPrivileges(req.user, function(valid) {
+    checkUserPrivileges(req, function(valid) {
       if (valid) {
         return next();
       } else {
@@ -22,7 +22,13 @@ var adminController = function() {
   };
 };
 
-var checkUserPrivileges = function(user, cb) {
+var checkUserPrivileges = function(req, cb) {
+  var user = req.user;
+  if(!user){
+    cb(false);
+    return;
+  }
+  
   User.findOne({
       'local.email': user.local.email,
     }).populate('role')
