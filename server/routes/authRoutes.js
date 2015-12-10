@@ -3,17 +3,25 @@ var passport = require('passport');
 var authRouter = express.Router();
 
 var router = function(routeConfig) {
+  var authController = require('../controllers/authController')();
+
   authRouter.route('/signup')
     .post(passport.authenticate('local-signup', {
       successRedirect: '/user/profile',
       failureRedirect: '/',
     }));
 
+  authRouter.route('/signup')
+    .get(authController.signup);
+
   authRouter.route('/login')
     .post(passport.authenticate('local-login', {
       successRedirect: '/user/profile',
       failureRedirect: '/',
     }));
+
+  authRouter.route('/login')
+    .get(authController.login);
 
   authRouter.route('/google')
     .get(passport.authenticate('google', {
@@ -39,6 +47,8 @@ var router = function(routeConfig) {
       successRedirect: '/user/profile',
       failure: '/',
     }));
+
+  authRouter.route('/logout').get(authController.logout);
 
   return authRouter;
 };

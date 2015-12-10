@@ -4,51 +4,41 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
-	<title>Storystrap Template</title>
+	<title>Bootstrap 3 Template / Theme - Flathood</title>
 	<meta name="generator" content="Bootply" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<!-- bower:css -->
 	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="/lib/bootstrap-table/src/bootstrap-table.css" />
-	<link rel="stylesheet" href="/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" />
 	<!-- endbower -->
 	<!-- bower:js -->
 	<script src="/lib/jquery/dist/jquery.js"></script>
 	<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="/lib/bootstrap-table/src/bootstrap-table.js"></script>
-	<script src="/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-	<script src="/lib/Chart.js/Chart.js"></script>
-	<script src="/lib/requirejs/require.js"></script>
-	<script src="/lib/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
 	<!-- endbower -->
 	<!-- inject:css -->
+
 	<link rel="stylesheet" href="/css/styles.css">
+
 	<!-- endinject -->
 	<!-- inject:js -->
-	<script src="/js/app.js"></script>
-	<script src="/js/chart-data.js"></script>
-	<script src="/js/easypiechart-data.js"></script>
-	<script src="/js/html5shiv.min.js"></script>
+
+	<script src="/js/scripts.js"></script>
+
 	<!-- endinject -->
 	<!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+	<link href="css/styles.css" rel="stylesheet">
 </head>
 
 <body>
-	<header class="navbar navbar-bright navbar-fixed-top" role="banner">
+	<nav class="navbar navbar-static">
 		<div class="container">
-			<div class="navbar-header">
-				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a href="/" class="navbar-brand">Home</a>
-			</div>
-			<nav class="collapse navbar-collapse" role="navigation">
+			<a class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="glyphicon glyphicon-chevron-down"></span>
+			</a>
+			<div class="nav-collapse collase">
 				<ul class="nav navbar-nav">
 					<% for(var i = 0; i < nav.length; i++) {%>
 						<li>
@@ -57,141 +47,181 @@
 							</a>
 						</li>
 						<% } %>
-							<li>
-								<a href="/auth/google" class="googleplus"><i class="fa fa-google-plus"></i></a>
-							</li>
-							<li>
-								<a href="/auth/facebook" class="facebook"><i class="fa fa-facebook"></i></a>
-							</li>
 				</ul>
 				<ul class="nav navbar-right navbar-nav">
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></a>
-						<ul class="dropdown-menu" style="padding:12px;">
-							<form class="form-inline">
-								<button type="submit" class="btn btn-default pull-right"><i class="glyphicon glyphicon-search"></i></button>
-								<input type="text" class="form-control pull-left" placeholder="Search">
-							</form>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
+						<ul class="dropdown-menu">
+							<% if (!user) { %>
+								<li><a href="<%=pages['login']%>"> Login</a></li>
+								<% } else { %>
+									<li><a href="<%=pages['profile']%>"> Profile</a></li>
+									<li><a href="<%=pages['logout']%>"> logout</a></li>
+									<% } %>
 						</ul>
 					</li>
 				</ul>
-			</nav>
+			</div>
 		</div>
-	</header>
-	<div id="masthead">
+	</nav>
+	<!-- /.navbar -->
+
+	<header class="masthead">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-7">
-					<h1>Storystrap
-						<p class="lead"></p>
+				<div class="col col-sm-6">
+					<h1><a href="#" title="scroll down for your viewing pleasure">BNW Template</a>
+						<p class="lead">2-column Layout + Theme for Bootstrap 3</p>
 					</h1>
 				</div>
-				<div class="col-md-5">
-					<div class="well well-lg">
-						<div class="row">
-							<div class="col-sm-12">
+				<div class="col col-sm-6">
+					<div class="well pull-right">
+						<img src="//placehold.it/280x100/E7E7E7">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col col-sm-12">
+
+					<div class="panel">
+						<div class="panel-body">
+							You may want to put some news here
+							<span class="glyphicon glyphicon-heart-empty"></span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- Begin Body -->
+	<div class="container">
+		<div class="row">
+			<div class="col col-sm-3">
+				<div id="sidebar">
+					<ul class="nav nav-stacked">
+						<li>
+							<h3 class="highlight">Channels <i class="glyphicon glyphicon-dashboard pull-right"></i></h3>
+						</li>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+					</ul>
+					<div class="accordion" id="accordion2">
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                                Accordion
+                            </a>
+							</div>
+							<div id="collapseOne" class="accordion-body collapse in">
+								<div class="accordion-inner">
+									<p>There is a lot to be said about RWD.</p>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                                    Accordion
+                                </a>
+							</div>
+							<div id="collapseTwo" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<p>Use @media queries or utility classes to customize responsiveness.</p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- /cont -->
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="top-spacer"> </div>
-				</div>
-			</div>
-		</div>
-		<!-- /cont -->
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
+			<div class="col col-sm-9">
 				<div class="panel">
-					<div class="panel-body">
-						<!--/stories-->
-						<div class="col-sm-6 col-sm-offset-3">
+					<h1>The Top Stories from Around</h1>
 
-							<h1>
-								<span class="fa fa-sign-in"></span> Login</h1>
-
-							<!-- LOGIN FORM -->
-							<form action="/auth/login" method="post">
-								<div class="form-group">
-									<label>Email</label>
-									<input type="text" class="form-control" name="email">
-								</div>
-								<div class="form-group">
-									<label>Password</label>
-									<input type="password" class="form-control" name="password">
-								</div>
-
-								<button type="submit" class="btn btn-warning btn-lg">Login</button>
-							</form>
-
+					<div class="row">
+						<div class="col col-sm-8">
+							<img src="http://s.bootply.com/assets/example/bg_iphone.png" class="img-responsive">
+						</div>
+						<div class="col col-sm-4">
+							<img src="//placehold.it/400x180/FF3333/FFF" class="img-responsive">
+							<h4>Aside</h4>
 							<hr>
+							<img src="//placehold.it/400x180/FF3333/FFF" class="img-responsive">
+							<h4>Aside 2</h4>
 						</div>
-						<div class="col-sm-6 col-sm-offset-3">
-							<h1>
-								<span class="fa fa-sign-in"></span> Signup</h1>
-									<form action="/auth/signup" method="post">
-										<div class="form-group">
-											<label>Email</label>
-											<input type="text" class="form-control" name="email">
-										</div>
-										<div class="form-group">
-											<label>Password</label>
-											<input type="password" class="form-control" name="password">
-										</div>
-
-										<button type="submit" class="btn btn-warning btn-lg">Signup</button>
-									</form>
-
-									<hr>
-						</div>
-
-						<!--/stories-->
 					</div>
-				</div>
-			</div>
-			<!--/col-12-->
-		</div>
-	</div>
-	<hr>
-	<div class="container" id="footer">
-		<div class="row">
-			<div class="col col-sm-12">
-				<h1>Follow Us</h1>
-				<div class="btn-group">
-					<a class="btn btn-twitter btn-lg" href="#"><i class="icon-twitter icon-large"></i> Twitter</a>
-					<a class="btn btn-facebook btn-lg" href="#"><i class="icon-facebook icon-large"></i> Facebook</a>
-					<a class="btn btn-google-plus btn-lg" href="#"><i class="icon-google-plus icon-large"></i> Google+</a>
-				</div>
 
+					<h2>Content</h2>
+					Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores eos qui ratione voluptatem sequi
+					nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+					exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+
+
+					<h2>Content</h2>
+					Rrem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores eos qui ratione voluptatem sequi nesciunt.
+					Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem
+					ullam corporis suscipit laboriosam, nisi ut
+					<br>
+					<br>
+					<button class="btn btn-default">More</button>
+
+					<hr>
+
+					<h2>Content</h2>
+					<img src="//placehold.it/150x100/EEEEEE" class="img-responsive pull-right"> Farmhand ida quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores eos qui ratione voluptatem sequi nesciunt.
+					I met him on the Internet. He's a French model. Qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis
+					nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
+					<br>
+					<br>
+					<button class="btn btn-default">More</button>
+
+					<hr>
+
+					<div class="row">
+						<div class="col col-sm-6">
+							<img src="/assets/example/bg_smartphones.jpg" class="img-responsive">
+
+						</div>
+						<div class="col col-sm-6">
+							<h1>There is still a lot to be said about the Responsive Web.</h1>
+						</div>
+					</div>
+
+					<hr>
+
+					<h2>Responsive Text</h2>
+					Eeaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores eos qui ratione voluptatem sequi nesciunt. Bootply
+					is this awesomeness. Editor, prototype tool, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
+					nisi ut
+
+					<hr>
+
+					<h2>Responsive Images</h2>
+					Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+					sit aspernatur aut odit aut fugit, sed quia cor magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt
+					ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
+
+					<hr>
+
+					<h2>Media Queries</h2>
+					Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+					sit aspernatur aut odit aut fugit, sed quia cor magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt
+					ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
+
+
+					<h1><a href="#"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a></h1>
+
+					<hr>
+					<h4><a href="http://bootply.com/">Bootply</a></h4>
+					<hr>
+				</div>
 			</div>
 		</div>
 	</div>
-	<hr>
-	<hr>
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6">
-					<ul class="list-inline">
-						<li><i class="icon-facebook icon-2x"></i></li>
-						<li><i class="icon-twitter icon-2x"></i></li>
-						<li><i class="icon-google-plus icon-2x"></i></li>
-						<li><i class="icon-pinterest icon-2x"></i></li>
-					</ul>
-				</div>
-				<div class="col-sm-6">
-					<p class="pull-right">Built with <i class="icon-heart-empty"></i> at <a href="http://www.bootply.com">Bootply</a></p>
-				</div>
-			</div>
-		</div>
-	</footer>
 </body>
 
 </html>

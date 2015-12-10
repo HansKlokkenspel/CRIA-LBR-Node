@@ -40,7 +40,9 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
   res.render('index', {
+    user: req.user,
     nav: nav,
+    pages: routeConfig.pages,
   });
 });
 

@@ -3,8 +3,8 @@ var appDir = path.dirname(require.main.filename);
 
 var globalConfig = function() {
   return {
-    app:{
-      appDir: appDir
+    app: {
+      appDir: appDir,
     },
     fileLocations: {
       routers: './server/routes/',
@@ -15,7 +15,7 @@ var globalConfig = function() {
     mongoDB: {
       database: 'laidbackReizen',
       url: 'mongodb://localhost/',
-    }
+    },
   };
 };
 

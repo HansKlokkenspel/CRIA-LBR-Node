@@ -1,9 +1,9 @@
 var nav = [{
-  Link: '/authors',
-  Text: 'Author',
-},  {
+  Link: '/',
+  Text: 'Home',
+}, {
   Link: '/admin',
   Text: 'Admin',
-}, ];
+}];
 
 module.exports = nav;
