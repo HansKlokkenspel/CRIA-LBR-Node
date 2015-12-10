@@ -32,7 +32,7 @@ var routes = routeConfig.routes;
 
 app.use(routes.auth, authRouter);
 app.use(routes.admin, adminRouter);
-app.use(routes.user, userRouter);
+app.use(routes.profile, userRouter);
 
 app.set('views', globalConfig.fileLocations.views);
 

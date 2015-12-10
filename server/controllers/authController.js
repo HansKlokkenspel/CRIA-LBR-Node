@@ -1,10 +1,17 @@
-var authController = function() {
+var authController = function(routeConfig) {
+  var pages = routeConfig.pages;
+  var viewsLocation = routeConfig.viewsLocation;
+
   var login = function(req, res) {
-    res.render('auth/login');
+    res.render(viewsLocation.login, {
+      pages: pages,
+    });
   };
 
   var signup = function(req, res) {
-    res.render('auth/signup');
+    res.render(viewsLocation.signup, {
+      pages: pages,
+    });
   };
 
   var logout = function(req, res) {

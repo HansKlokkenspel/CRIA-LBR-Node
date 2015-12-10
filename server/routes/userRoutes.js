@@ -7,7 +7,7 @@ var router = function(routeConfig) {
 
   userRouter.use('/', middlewareController.middleware);
 
-  userRouter.route('/profile')
+  userRouter.route('/index')
     .get(userController.profile);
 
   return userRouter;

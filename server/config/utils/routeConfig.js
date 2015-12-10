@@ -7,7 +7,7 @@ var routeConfig = function() {
   var routes = {
     auth: '/auth',
     admin: '/admin',
-    user: '/user',
+    profile: '/profile',
   };
 
   var nav = {
@@ -18,14 +18,23 @@ var routeConfig = function() {
     login: routes.auth + '/login',
     logout: routes.auth + '/logout',
     signup: routes.auth + '/signup',
-    profile: routes.user + '/profile',
-    admin: routes.admin,
+    profile: routes.profile + '/index',
+    admin: routes.admin + '/adminPanel',
+  };
+
+  var viewsLocation = {
+    login: pages.login.substring(1),
+    logout: pages.logout.substring(1),
+    signup: pages.signup.substring(1),
+    profile: pages.profile.substring(1),
+    admin: pages.admin.substring(1),
   };
 
   return {
     routes: routes,
     nav: nav,
     pages: pages,
+    viewsLocation: viewsLocation,
   };
 };
 

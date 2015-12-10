@@ -3,11 +3,13 @@ var passport = require('passport');
 var authRouter = express.Router();
 
 var router = function(routeConfig) {
-  var authController = require('../controllers/authController')();
+  var authController = require('../controllers/authController')(routeConfig);
+
+  var pages = routeConfig.pages;
 
   authRouter.route('/signup')
     .post(passport.authenticate('local-signup', {
-      successRedirect: '/user/profile',
+      successRedirect: pages.profile,
       failureRedirect: '/',
     }));
 
@@ -16,7 +18,7 @@ var router = function(routeConfig) {
 
   authRouter.route('/login')
     .post(passport.authenticate('local-login', {
-      successRedirect: '/user/profile',
+      successRedirect: pages.profile,
       failureRedirect: '/',
     }));
 
@@ -33,7 +35,7 @@ var router = function(routeConfig) {
 
   authRouter.route('/google/callback')
     .get(passport.authenticate('google', {
-      successRedirect: '/user/profile',
+      successRedirect: pages.profile,
       failure: '/',
     }));
 
@@ -44,7 +46,7 @@ var router = function(routeConfig) {
 
   authRouter.route('/facebook/callback')
     .get(passport.authenticate('facebook', {
-      successRedirect: '/user/profile',
+      successRedirect: pages.profile,
       failure: '/',
     }));
 

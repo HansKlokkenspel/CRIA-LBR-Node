@@ -1,7 +1,7 @@
 var Role = require('../models/roleModel');
 var User = require('../models/userModel');
 
-var adminController = function() {
+var adminController = function(routeConfig) {
   var middleware = function(req, res, next) {
     checkUserPrivileges(req, function(valid) {
       if (valid) {
@@ -12,23 +12,23 @@ var adminController = function() {
     });
   };
 
-  var adminHome = function(req, res) {
-    res.render('admin/adminPanel');
+  var adminPanel = function(req, res) {
+    res.render(routeConfig.viewsLocation.admin);
   };
 
   return {
     middleware: middleware,
-    adminHome: adminHome,
+    adminPanel: adminPanel,
   };
 };
 
 var checkUserPrivileges = function(req, cb) {
   var user = req.user;
-  if(!user){
+  if (!user) {
     cb(false);
     return;
   }
-  
+
   User.findOne({
       'local.email': user.local.email,
     }).populate('role')
