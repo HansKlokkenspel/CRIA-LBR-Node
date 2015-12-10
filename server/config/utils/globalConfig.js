@@ -1,5 +1,11 @@
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
+
 var globalConfig = function() {
   return {
+    app:{
+      appDir: appDir
+    },
     routes: {
       auth: '/auth',
       admin: '/admin',

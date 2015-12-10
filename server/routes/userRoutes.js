@@ -1,8 +1,8 @@
 var express = require('express');
-var mongodb = require('mongodb').MongoClient;
 var userRouter = express.Router();
 
 var router = function(nav) {
+  // var userController = require();
   userRouter.use('/', function(req, res, next) {
     if (!req.user) {
       res.redirect('/');

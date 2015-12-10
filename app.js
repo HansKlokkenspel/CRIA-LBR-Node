@@ -12,7 +12,6 @@ var dbSeed = require(configLocation + 'startup/dbSeed');
 
 var nav = require(configLocation + 'navStructure');
 
-var bookRouter = require(globalRoutes + 'bookRoutes')(nav);
 var adminRouter = require(globalRoutes + 'adminRoutes')(nav);
 var authRouter = require(globalRoutes + 'authRoutes')(nav);
 var userRouter = require(globalRoutes + 'userRoutes')(nav);
