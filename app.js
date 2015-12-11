@@ -16,6 +16,7 @@ var nav = routeConfig.nav.structure;
 var adminRouter = require(globalRoutes + 'adminRoutes')(routeConfig);
 var authRouter = require(globalRoutes + 'authRoutes')(routeConfig);
 var userRouter = require(globalRoutes + 'userRoutes')(routeConfig);
+var bookingRouter = require(globalRoutes + 'bookingRoutes')(routeConfig);
 
 var port = process.env.PORT || 8000;
 
@@ -33,6 +34,7 @@ var routes = routeConfig.routes;
 app.use(routes.auth, authRouter);
 app.use(routes.admin, adminRouter);
 app.use(routes.profile, userRouter);
+app.use(routes.bookings, bookingRouter);
 
 app.set('views', globalConfig.fileLocations.views);
 

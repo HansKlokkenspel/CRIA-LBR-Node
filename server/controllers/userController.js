@@ -1,8 +1,18 @@
 var userController = function(routeConfig) {
   var viewsLocation = routeConfig.viewsLocation;
 
-  var profile = function(req, res) {
-    res.render(viewsLocation.profile, {
+  var index = function(req, res) {
+    res.render(viewsLocation.profile.index, {
+      nav: routeConfig.nav.structure,
+      user: {
+        name: req.user.displayName,
+        image: req.user.image,
+      },
+    });
+  };
+
+  var edit = function(req, res) {
+    res.render(viewsLocation.profile.edit, {
       nav: routeConfig.nav.structure,
       user: {
         name: req.user.displayName,
@@ -12,7 +22,8 @@ var userController = function(routeConfig) {
   };
 
   return {
-    profile: profile,
+    index: index,
+    edit: edit,
   };
 };
 

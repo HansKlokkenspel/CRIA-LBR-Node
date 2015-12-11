@@ -9,7 +9,7 @@ var router = function(routeConfig) {
 
   authRouter.route('/signup')
     .post(passport.authenticate('local-signup', {
-      successRedirect: pages.profile,
+      successRedirect: pages.profile.index,
       failureRedirect: '/',
     }));
 
@@ -18,7 +18,7 @@ var router = function(routeConfig) {
 
   authRouter.route('/login')
     .post(passport.authenticate('local-login', {
-      successRedirect: pages.profile,
+      successRedirect: pages.profile.index,
       failureRedirect: '/',
     }));
 
@@ -35,7 +35,7 @@ var router = function(routeConfig) {
 
   authRouter.route('/google/callback')
     .get(passport.authenticate('google', {
-      successRedirect: pages.profile,
+      successRedirect: pages.profile.index,
       failure: '/',
     }));
 
@@ -46,7 +46,7 @@ var router = function(routeConfig) {
 
   authRouter.route('/facebook/callback')
     .get(passport.authenticate('facebook', {
-      successRedirect: pages.profile,
+      successRedirect: pages.profile.index,
       failure: '/',
     }));
 
