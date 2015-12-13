@@ -6,11 +6,15 @@ var router = function(routeConfig, middlewareController) {
 
   userRouter.use('/', middlewareController.middleware);
 
+  // <------------------------------GET------------------------------>
+
   userRouter.route('/index')
-    .get(userController.index);
+    .get(userController.getIndex);
 
   userRouter.route('/edit')
-    .get(userController.edit);
+    .get(userController.getEdit);
+
+  // <------------------------------POST------------------------------>
 
   userRouter.route('/edit')
     .post(userController.edit);

@@ -7,18 +7,14 @@ var router = function(routeConfig, middlewareController) {
 
   var pages = routeConfig.pages;
 
-  authRouter.route('/signup')
-    .post(passport.authenticate('local-signup', {
-      successRedirect: pages.profile.index,
-      failureRedirect: '/',
-    }));
+  // <------------------------------GET------------------------------>
 
   authRouter.route('/signup')
     .get(authController.signup);
 
   authRouter.route('/login')
     .post(passport.authenticate('local-login', {
-      successRedirect: pages.profile.index,
+      successRedirect: pages.profile.getIndex,
       failureRedirect: '/',
     }));
 
@@ -35,7 +31,7 @@ var router = function(routeConfig, middlewareController) {
 
   authRouter.route('/google/callback')
     .get(passport.authenticate('google', {
-      successRedirect: pages.profile.index,
+      successRedirect: pages.profile.getIndex,
       failure: '/',
     }));
 
@@ -46,11 +42,19 @@ var router = function(routeConfig, middlewareController) {
 
   authRouter.route('/facebook/callback')
     .get(passport.authenticate('facebook', {
-      successRedirect: pages.profile.index,
+      successRedirect: pages.profile.getIndex,
       failure: '/',
     }));
 
   authRouter.route('/logout').get(authController.logout);
+
+  // <------------------------------POST------------------------------>
+
+  authRouter.route('/signup')
+    .post(passport.authenticate('local-signup', {
+      successRedirect: pages.profile.getIndex,
+      failureRedirect: '/',
+    }));
 
   return authRouter;
 };

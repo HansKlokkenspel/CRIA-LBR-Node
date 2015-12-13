@@ -1,6 +1,8 @@
 var adminController = function(routeConfig) {
   var middlewareController = require('./middlewareController')();
 
+  // <------------------------------GET------------------------------>
+
   var adminPanel = function(req, res) {
     res.render(routeConfig.viewsLocation.admin);
   };

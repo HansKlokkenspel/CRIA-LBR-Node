@@ -2,6 +2,8 @@ var authController = function(routeConfig) {
   var pages = routeConfig.pages;
   var viewsLocation = routeConfig.viewsLocation;
 
+  // <------------------------------GET------------------------------>
+
   var login = function(req, res) {
     res.render(viewsLocation.login, {
       pages: pages,

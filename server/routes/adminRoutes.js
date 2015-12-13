@@ -6,8 +6,12 @@ var router = function(routeConfig, middlewareController) {
 
   adminRouter.use('/', middlewareController.adminMiddleware);
 
+  // <------------------------------GET------------------------------>
+
   adminRouter.route('/')
     .get(adminController.adminPanel);
+
+  // <------------------------------POST------------------------------>
 
   return adminRouter;
 };

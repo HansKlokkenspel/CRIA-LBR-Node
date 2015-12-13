@@ -1,6 +1,7 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../../models/userModel');
+var Role = require('../../models/roleModel');
 
 var strategy = function() {
   passport.use('local-signup', new LocalStrategy({
@@ -28,12 +29,22 @@ var strategy = function() {
             user.local.email = email;
             user.local.password = user.generateHash(password);
 
-            user.save(function(err) {
+            Role.findOne({
+              'roleName': 'Default',
+            }, function(err, role) {
               if (err) {
-                throw err;
-              }
+                return done(err);
+              } else {
+                user.role = role._id;
 
-              return done(null, user);
+                user.save(function(err) {
+                  if (err) {
+                    return done(err);
+                  }
+
+                  return done(null, user);
+                });
+              }
             });
           }
         });

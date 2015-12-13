@@ -1,8 +1,10 @@
 var userController = function(routeConfig) {
   var viewsLocation = routeConfig.viewsLocation;
 
-  var index = function(req, res) {
-    res.render(viewsLocation.profile.index, {
+  // <------------------------------GET------------------------------>
+
+  var getIndex = function(req, res) {
+    res.render(viewsLocation.profile.getIndex, {
       nav: routeConfig.nav.structure,
       user: {
         name: req.user.displayName,
@@ -11,8 +13,8 @@ var userController = function(routeConfig) {
     });
   };
 
-  var edit = function(req, res) {
-    res.render(viewsLocation.profile.edit, {
+  var getEdit = function(req, res) {
+    res.render(viewsLocation.profile.getEdit, {
       nav: routeConfig.nav.structure,
       user: {
         name: req.user.displayName,
@@ -20,9 +22,14 @@ var userController = function(routeConfig) {
       },
     });
   };
+
+  // <------------------------------POST------------------------------>
+
+  var edit = function(req, res) {};
 
   return {
-    index: index,
+    getIndex: getIndex,
+    getEdit: getEdit,
     edit: edit,
   };
 };

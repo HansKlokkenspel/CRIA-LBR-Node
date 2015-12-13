@@ -21,16 +21,18 @@ var routeConfig = function() {
     logout: routes.auth + '/logout',
     signup: routes.auth + '/signup',
     profile: {
-      index: routes.profile + '/index',
-      edit: routes.profile + '/edit',
+      getIndex: routes.profile + '/index',
+      getEdit: routes.profile + '/edit',
     },
     bookings: {
       getBookingIndex: routes.bookings,
       getBookingById: routes.bookings + '/:id',
+      getAddBooking: routes.bookings + '/add',
     },
     destinations: {
       getDestinationIndex: routes.destinations,
       getDestinationById: routes.destinations + '/:id',
+      getAddDestination: routes.destinations + '/add',
     },
     admin: routes.admin + '/adminPanel',
   };
@@ -40,16 +42,18 @@ var routeConfig = function() {
     logout: pages.logout.substring(1),
     signup: pages.signup.substring(1),
     profile: {
-      index: pages.profile.index.substring(1),
-      edit: pages.profile.edit.substring(1),
+      getIndex: pages.profile.getIndex.substring(1),
+      getEdit: pages.profile.getEdit.substring(1),
     },
     bookings: {
       getBookingIndex: pages.bookings.getBookingIndex.substring(1) + '/bookingListView',
-      getBookingById: pages.bookings.getBookingIndex.substring(1) + '/bookingView'
+      getBookingById: pages.bookings.getBookingIndex.substring(1) + '/bookingView',
+      getAddBooking: pages.bookings.getBookingIndex.substring(1) + '/addBookingView',
     },
     destinations: {
       getDestinationIndex: pages.destinations.getDestinationIndex.substring(1) + '/destinationListView',
-      getDestinationById: pages.destinations.getDestinationIndex.substring(1) + '/destinationView'
+      getDestinationById: pages.destinations.getDestinationIndex.substring(1) + '/destinationView',
+      getAddDestination: pages.destinations.getDestinationIndex.substring(1) + '/destinationAddView',
     },
     admin: pages.admin.substring(1),
   };
