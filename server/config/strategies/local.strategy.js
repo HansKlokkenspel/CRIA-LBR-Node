@@ -30,7 +30,7 @@ var strategy = function() {
             user.local.password = user.generateHash(password);
 
             Role.findOne({
-              'roleName': 'Default',
+              'name': 'Default',
             }, function(err, role) {
               if (err) {
                 return done(err);

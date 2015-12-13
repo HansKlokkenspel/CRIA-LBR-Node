@@ -5,7 +5,7 @@ var dbSeed = function() {
   console.log('Seeding database');
 
   Role.findOne({
-    'roleName': 'Default',
+    'name': 'Default',
   }, function(err, role) {
     if (!err) {
       createRole(role, 'Default');
@@ -15,7 +15,7 @@ var dbSeed = function() {
   });
 
   Role.findOne({
-    'roleName': 'Admin',
+    'name': 'Admin',
   }, function(err, role) {
     if (!err) {
       createRole(role, 'Admin');
@@ -52,7 +52,7 @@ var createUser = function(user, email, password, role) {
     newUser.local.password = newUser.generateHash(password);
 
     Role.findOne({
-      'roleName': role,
+      'name': role,
     }, function(err, role) {
       newUser.role = role._id;
 
@@ -65,10 +65,10 @@ var createUser = function(user, email, password, role) {
   }
 };
 
-var createRole = function(role, roleName) {
+var createRole = function(role, name) {
   if (!role) {
     var newRole = new Role();
-    newRole.roleName = roleName;
+    newRole.name = name;
     newRole.save();
   }
 };

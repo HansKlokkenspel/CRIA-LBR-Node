@@ -26,6 +26,10 @@ var UserSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: 'Role'
   },
+  bookings: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Booking',
+  }],
 });
 
 UserSchema.methods.generateHash = function(password) {

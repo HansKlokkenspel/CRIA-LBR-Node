@@ -37,7 +37,7 @@ var middlewareController = function() {
           console.log('Something went wrong with getting the user object! : ' + err);
           cb(false);
           return;
-        } else if (user.role.roleName == 'Admin') {
+        } else if (user.role.name == 'Admin') {
           console.log('You are an admin, congratulations!');
           cb(true);
           return;
