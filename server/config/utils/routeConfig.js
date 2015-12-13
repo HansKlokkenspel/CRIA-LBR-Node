@@ -9,6 +9,7 @@ var routeConfig = function() {
     admin: '/admin',
     profile: '/profile',
     bookings: '/bookings',
+    destinations: '/destinations',
   };
 
   var nav = {
@@ -27,6 +28,10 @@ var routeConfig = function() {
       getBookingIndex: routes.bookings,
       getBookingById: routes.bookings + '/:id',
     },
+    destinations: {
+      getDestinationIndex: routes.destinations,
+      getDestinationById: routes.destinations + '/:id',
+    },
     admin: routes.admin + '/adminPanel',
   };
 
@@ -41,6 +46,10 @@ var routeConfig = function() {
     bookings: {
       getBookingIndex: pages.bookings.getBookingIndex.substring(1) + '/bookingListView',
       getBookingById: pages.bookings.getBookingIndex.substring(1) + '/bookingView'
+    },
+    destinations: {
+      getDestinationIndex: pages.destinations.getDestinationIndex.substring(1) + '/destinationListView',
+      getDestinationById: pages.destinations.getDestinationIndex.substring(1) + '/destinationView'
     },
     admin: pages.admin.substring(1),
   };

@@ -1,7 +1,7 @@
 var bookingController = function(routeConfig) {
 
   var getBookingIndex = function(req, res) {
-    res.render(viewsLocation.profile.getBookingIndex, {
+    res.render(routeConfig.viewsLocation.bookings.getBookingIndex, {
       nav: routeConfig.nav.structure,
       user: {
         name: req.user.displayName,
@@ -11,7 +11,7 @@ var bookingController = function(routeConfig) {
   };
 
   var getBookingById = function(req, res) {
-    res.render(viewsLocation.profile.getBookingById, {
+    res.render(routeConfig.viewsLocation.bookings.getBookingById, {
       nav: routeConfig.nav.structure,
       user: {
         name: req.user.displayName,

@@ -10,7 +10,7 @@ var router = function(routeConfig) {
   bookingRouter.route('/')
     .get(bookingController.getBookingIndex);
 
-  bookingRouter.route('/')
+  bookingRouter.route('/add')
     .post(bookingController.addBooking);
 
   bookingRouter.route('/:id')
@@ -22,7 +22,7 @@ var router = function(routeConfig) {
   bookingRouter.route('/edit/:id')
     .post(bookingController.editBookingById);
 
-  return {};
+  return bookingRouter;
 };
 
 module.exports = router;
