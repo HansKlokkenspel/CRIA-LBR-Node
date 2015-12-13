@@ -1,8 +1,7 @@
 var express = require('express');
 var destinationRoutes = express.Router();
 
-var router = function(routeConfig) {
-  var middlewareController = require('../controllers/middlewareController')();
+var router = function(routeConfig, middlewareController) {
   var destinationController = require('../controllers/destinationController')(routeConfig);
 
   destinationRoutes.use('/', middlewareController.middleware);

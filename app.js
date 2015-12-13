@@ -13,11 +13,13 @@ var dbSeed = require(configLocation + 'startup/dbSeed');
 
 var nav = routeConfig.nav.structure;
 
-var adminRouter = require(globalRoutes + 'adminRoutes')(routeConfig);
-var authRouter = require(globalRoutes + 'authRoutes')(routeConfig);
-var userRouter = require(globalRoutes + 'userRoutes')(routeConfig);
-var bookingRouter = require(globalRoutes + 'bookingRoutes')(routeConfig);
-var destinationRouter = require(globalRoutes + 'destinationRoutes')(routeConfig);
+var middlewareController = require('./server/controllers/middlewareController')();
+
+var adminRouter = require(globalRoutes + 'adminRoutes')(routeConfig, middlewareController);
+var authRouter = require(globalRoutes + 'authRoutes')(routeConfig, middlewareController);
+var userRouter = require(globalRoutes + 'userRoutes')(routeConfig, middlewareController);
+var bookingRouter = require(globalRoutes + 'bookingRoutes')(routeConfig, middlewareController);
+var destinationRouter = require(globalRoutes + 'destinationRoutes')(routeConfig, middlewareController);
 
 var port = process.env.PORT || 8000;
 

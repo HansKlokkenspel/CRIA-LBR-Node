@@ -2,7 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var authRouter = express.Router();
 
-var router = function(routeConfig) {
+var router = function(routeConfig, middlewareController) {
   var authController = require('../controllers/authController')(routeConfig);
 
   var pages = routeConfig.pages;

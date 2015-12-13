@@ -1,10 +1,10 @@
 var express = require('express');
 var adminRouter = express.Router();
 
-var router = function(routeConfig) {
+var router = function(routeConfig, middlewareController) {
   var adminController = require('../controllers/adminController')(routeConfig);
 
-  adminRouter.use('/', adminController.middleware);
+  adminRouter.use('/', middlewareController.adminMiddleware);
 
   adminRouter.route('/')
     .get(adminController.adminPanel);

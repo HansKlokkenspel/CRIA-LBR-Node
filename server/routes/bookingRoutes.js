@@ -1,8 +1,7 @@
 var express = require('express');
 var bookingRouter = express.Router();
 
-var router = function(routeConfig) {
-  var middlewareController = require('../controllers/middlewareController')();
+var router = function(routeConfig, middlewareController) {
   var bookingController = require('../controllers/bookingController')(routeConfig);
 
   bookingRouter.use('/', middlewareController.middleware);
