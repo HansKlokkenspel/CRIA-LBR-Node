@@ -12,7 +12,7 @@ var destinationController = function(routeConfig, middlewareController) {
   };
 
   var getDestinationById = function(req, res) {
-    var id = new ObjectId(req.params.id);
+    var id = req.params.id;
     res.render(req, paramHandler, function(params) {
       res.render(routeConfig.viewsLocation.destinations.getDestinationById, params);
     }, id);
@@ -74,6 +74,8 @@ var destinationController = function(routeConfig, middlewareController) {
 
 var addRenderParams = function(req, paramHandler, cb, id) {
   var defaultParams = paramHandler.getDefaultParams(req);
+  console.log('id');
+  console.log(id);
   if (typeof id !== 'undefined') {
     Destination.findOne({
       _id: id
@@ -81,28 +83,22 @@ var addRenderParams = function(req, paramHandler, cb, id) {
       var params = {
         destination: result,
       };
-
       Object.assign(params, defaultParams);
+      console.log('params');
+      console.log(params);
       cb(params);
     });
   } else {
     Destination.find(function(err, result) {
-      console.log('no id');
-      console.log(result);
-
-      Destination.populate(result, {path:'hotels'}, function(err, dest){
-        console.log('dest');
-        console.log(dest);
+      Destination.populate(result, {
+        path: 'hotels'
+      }, function(err, dest) {
+        var params = {
+          destinations: result,
+        };
+        Object.assign(params, defaultParams);
+        cb(params);
       });
-
-      var params = {
-        destinations: result,
-      };
-
-      console.log('defaultParams');
-      console.log(defaultParams);
-      Object.assign(params, defaultParams);
-      cb(params);
     });
   }
 };

@@ -32,7 +32,13 @@
 							<ul>
 								<% for(var j = 0; j < destinations[i].hotels.length; j++) {%>
 									<li>
-										<%=destinations[i].hotels[j]%>
+										<%=destinations[i].hotels[j].name%>
+									</li>
+									<li>
+										<%=destinations[i].hotels[j].arrangements%>
+									</li>
+									<li>
+										<%=destinations[i].hotels[j].rating%>
 									</li>
 									<% } %>
 							</ul>
