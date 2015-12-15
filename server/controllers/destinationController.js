@@ -5,7 +5,7 @@ var destinationController = function(routeConfig, middlewareController) {
 
   // <------------------------------GET------------------------------>
   var getDestinationIndex = function(req, res) {
-    renderStrategy(req, paramHandler, function(params) {
+    addRenderParams(req, paramHandler, function(params) {
       res.render(routeConfig.viewsLocation.destinations.getDestinationIndex, params);
     });
   };
@@ -69,16 +69,33 @@ var destinationController = function(routeConfig, middlewareController) {
   };
 };
 
-var renderStrategy = function(req, paramHandler, cb) {
+var addRenderParams = function(req, paramHandler, cb, id) {
   var defaultParams = paramHandler.getDefaultParams(req);
-  Destination.find(function(err, result) {
-    var params = {
-      destinations: result,
-    };
+  if (!typeof id === 'undefined') {
+    Destination.find({
+      _id: id
+    }, function(err, result) {
+      console.log('with id');
+      console.log(result);
+      var params = {
+        destinations: result,
+      };
 
-    Object.assign(params, defaultParams);
-    cb(params);
-  });
+      Object.assign(params, defaultParams);
+      cb(params);
+    });
+  } else {
+    Destination.find(function(err, result) {
+      console.log('no id');
+      console.log(result);
+      var params = {
+        destinations: result,
+      };
+
+      Object.assign(params, defaultParams);
+      cb(params);
+    });
+  }
 };
 
 module.exports = destinationController;
