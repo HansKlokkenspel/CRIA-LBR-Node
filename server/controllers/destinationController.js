@@ -1,4 +1,5 @@
 var Destination = require('../models/destinationModel');
+var ObjectId = require('mongodb').ObjectID;
 
 var destinationController = function(routeConfig, middlewareController) {
   var paramHandler = require('../config/utils/paramHandler')(routeConfig);
@@ -11,8 +12,10 @@ var destinationController = function(routeConfig, middlewareController) {
   };
 
   var getDestinationById = function(req, res) {
-    res.render(routeConfig.viewsLocation.destinations.getDestinationById,
-      paramHandler.getDefaultParams(req));
+    var id = new ObjectId(req.params.id);
+    res.render(req, paramHandler, function(params) {
+      res.render(routeConfig.viewsLocation.destinations.getDestinationById, params);
+    }, id);
   };
 
   var getAddDestination = function(req, res) {
@@ -71,14 +74,12 @@ var destinationController = function(routeConfig, middlewareController) {
 
 var addRenderParams = function(req, paramHandler, cb, id) {
   var defaultParams = paramHandler.getDefaultParams(req);
-  if (!typeof id === 'undefined') {
-    Destination.find({
+  if (typeof id !== 'undefined') {
+    Destination.findOne({
       _id: id
     }, function(err, result) {
-      console.log('with id');
-      console.log(result);
       var params = {
-        destinations: result,
+        destination: result,
       };
 
       Object.assign(params, defaultParams);
@@ -90,6 +91,7 @@ var addRenderParams = function(req, paramHandler, cb, id) {
       console.log(result);
 
       Destination.populate(result, {path:'hotels'}, function(err, dest){
+        console.log('dest');
         console.log(dest);
       });
 
@@ -97,6 +99,8 @@ var addRenderParams = function(req, paramHandler, cb, id) {
         destinations: result,
       };
 
+      console.log('defaultParams');
+      console.log(defaultParams);
       Object.assign(params, defaultParams);
       cb(params);
     });

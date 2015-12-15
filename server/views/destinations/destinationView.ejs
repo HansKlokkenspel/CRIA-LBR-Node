@@ -20,6 +20,16 @@
 				</div>
 			</div>
 			<div class="col col-sm-9">
+				<p>
+					<%=destination.description%>
+				</p>
+				<ul>
+					<% for(var i = 0; i < destination.hotels.length; i++) {%>
+						<li>
+							<%=destination.hotels[i]%>
+						</li>
+						<% } %>
+				</ul>
 			</div>
 		</div>
 	</div>

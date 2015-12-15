@@ -31,7 +31,6 @@ var routeConfig = function() {
     },
     destinations: {
       getDestinationIndex: routes.destinations,
-      getDestinationById: routes.destinations + '/:id',
       getAddDestination: routes.destinations + '/add',
     },
     admin: routes.admin + '/adminPanel',

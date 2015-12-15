@@ -147,7 +147,9 @@ var createHotel = function(name, description, rating, cb) {
     newHotel.arrangements.push(newArrangement);
     console.log('Arrangement size = ' + newHotel.arrangements.length);
     if (newHotel.arrangements.length === 3) {
-      cb(newHotel);
+      newHotel.save(function(err, result) {
+        cb(newHotel);
+      });
     }
   });
 
@@ -155,7 +157,9 @@ var createHotel = function(name, description, rating, cb) {
     newHotel.arrangements.push(newArrangement);
     console.log('Arrangement size = ' + newHotel.arrangements.length);
     if (newHotel.arrangements.length === 3) {
-      cb(newHotel);
+      newHotel.save(function(err, result) {
+        cb(newHotel);
+      });
     }
   });
 
@@ -163,13 +167,13 @@ var createHotel = function(name, description, rating, cb) {
     newHotel.arrangements.push(newArrangement);
     console.log('Arrangement size = ' + newHotel.arrangements.length);
     if (newHotel.arrangements.length === 3) {
-      cb(newHotel);
+      newHotel.save(function(err, result) {
+        cb(newHotel);
+      });
     }
   });
 };
 
-var createPayment = function() {};
-var createBooking = function() {};
 
 var createCountry = function(name, description, destination) {
   var newCountry = new Country();
@@ -236,5 +240,8 @@ var createRole = function(name, cb) {
     }
   });
 };
+
+var createPayment = function() {};
+var createBooking = function() {};
 
 module.exports = dbSeed;
