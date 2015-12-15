@@ -10,29 +10,29 @@ var Country = require('../../models/countryModel');
 var dbSeed = function() {
   console.log('Seeding database');
 
-  Role.findOne({
-    'name': 'Default',
-  }, function(err, result) {
-    if (err) {
-      return err;
-    }
-
-    if (!result) {
-      createRole(result, 'Default');
-    }
-  });
-
-  Role.findOne({
-    'name': 'Admin',
-  }, function(err, result) {
-    if (err) {
-      return err;
-    }
-
-    if (!result) {
-      createRole(result, 'Admin');
-    }
-  });
+  // Role.findOne({
+  //   'name': 'Default',
+  // }, function(err, result) {
+  //   if (err) {
+  //     return err;
+  //   }
+  //
+  //   if (!result) {
+  //     createRole(result, 'Default');
+  //   }
+  // });
+  //
+  // Role.findOne({
+  //   'name': 'Admin',
+  // }, function(err, result) {
+  //   if (err) {
+  //     return err;
+  //   }
+  //
+  //   if (!result) {
+  //     createRole(result, 'Admin');
+  //   }
+  // });
 
   User.findOne({
     'local.email': 'admin@lbr.nl',
@@ -42,7 +42,7 @@ var dbSeed = function() {
     }
 
     if (!result) {
-      createUser(result, 'admin@lbr.nl', 'admin', 'Admin');
+      createUser('admin@lbr.nl', 'admin', 'Admin');
     }
   });
 
@@ -54,7 +54,7 @@ var dbSeed = function() {
     }
 
     if (!result) {
-      createUser(result, 'user@lbr.nl', 'user', 'Default');
+      createUser('user@lbr.nl', 'user', 'Default');
     }
   });
 
@@ -207,32 +207,34 @@ var createCountry = function(name, description, destination) {
   });
 };
 
-var createUser = function(user, email, password, role) {
-  if (!user) {
-    var newUser = new User();
-    newUser.local.email = email;
-    newUser.local.password = newUser.generateHash(password);
+var createUser = function(email, password, roleName) {
+  var newUser = new User();
+  newUser.local.email = email;
+  newUser.local.password = newUser.generateHash(password);
 
-    Role.findOne({
-      'name': role,
-    }, function(err, role) {
+  Role.findOne({
+    'name': roleName,
+  }, function(err, role) {
+    if (role) {
       newUser.role = role._id;
-
-      newUser.save(function(err) {
-        if (err) {
-          console.log('Something went wrong when creating a user! : ' + err);
-        }
+      newUser.save();
+    } else {
+      createRole(roleName, function(newRole) {
+        newUser.role = newRole._id;
+        newUser.save();
       });
-    });
-  }
+    }
+  });
 };
 
-var createRole = function(role, name) {
-  if (!role) {
-    var newRole = new Role();
-    newRole.name = name;
-    newRole.save();
-  }
+var createRole = function(name, cb) {
+  var newRole = new Role();
+  newRole.name = name;
+  newRole.save(function(err, result) {
+    if (!err) {
+      cb(result);
+    }
+  });
 };
 
 module.exports = dbSeed;

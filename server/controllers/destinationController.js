@@ -88,6 +88,11 @@ var addRenderParams = function(req, paramHandler, cb, id) {
     Destination.find(function(err, result) {
       console.log('no id');
       console.log(result);
+
+      Destination.populate(result, {path:'hotels'}, function(err, dest){
+        console.log(dest);
+      });
+
       var params = {
         destinations: result,
       };
