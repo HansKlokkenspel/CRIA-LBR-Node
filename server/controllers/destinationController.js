@@ -1,35 +1,19 @@
 var destinationController = function(routeConfig, middlewareController) {
+  var paramHandler = require('../config/utils/paramHandler')(routeConfig);
+
   // <------------------------------GET------------------------------>
   var getDestinationIndex = function(req, res) {
-    res.render(routeConfig.viewsLocation.destinations.getDestinationIndex, {
-      nav: routeConfig.nav.structure,
-      user: {
-        name: req.user.displayName,
-        image: req.user.image,
-      },
-    });
+    res.render(routeConfig.viewsLocation.destinations.getDestinationIndex, paramHandler.getDefaultParams(req));
   };
 
   var getDestinationById = function(req, res) {
-    res.render(routeConfig.viewsLocation.destinations.getDestinationById, {
-      nav: routeConfig.nav.structure,
-      user: {
-        name: req.user.displayName,
-        image: req.user.image,
-      },
-    });
+    res.render(routeConfig.viewsLocation.destinations.getDestinationById, paramHandler.getDefaultParams(req));
   };
 
   var getAddDestination = function(req, res) {
     middlewareController.checkUserPrivileges(req, function(valid) {
       if (valid) {
-        res.render(routeConfig.viewsLocation.destinations.getAddDestination, {
-          nav: routeConfig.nav.structure,
-          user: {
-            name: req.user.displayName,
-            image: req.user.image,
-          },
-        });
+        res.render(routeConfig.viewsLocation.destinations.getAddDestination, paramHandler.getDefaultParams(req));
       } else {
         res.redirect('/');
       }
@@ -39,13 +23,7 @@ var destinationController = function(routeConfig, middlewareController) {
   var getEditDestinationById = function(req, res) {
     middlewareController.checkUserPrivileges(req, function(valid) {
       if (valid) {
-        res.render(routeConfig.viewsLocation.destinations.getAddDestination, {
-          nav: routeConfig.nav.structure,
-          user: {
-            name: req.user.displayName,
-            image: req.user.image,
-          },
-        });
+        res.render(routeConfig.viewsLocation.destinations.getAddDestination, paramHandler.getDefaultParams(req));
       } else {
         res.redirect('/');
       }

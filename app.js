@@ -30,6 +30,7 @@ app.use(express.static(globalConfig.fileLocations.assets));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+
 require(configLocation + 'passport/passport')(app);
 
 var routes = routeConfig.routes;

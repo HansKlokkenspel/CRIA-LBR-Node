@@ -1,4 +1,5 @@
 var authController = function(routeConfig) {
+  var paramHandler = require('../config/utils/paramHandler')(routeConfig);
   var pages = routeConfig.pages;
   var viewsLocation = routeConfig.viewsLocation;
 
