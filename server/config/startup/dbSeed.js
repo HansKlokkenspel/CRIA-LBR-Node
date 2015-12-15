@@ -111,6 +111,7 @@ var createDestination = function(name, description, cb) {
         newDestination.hotels.push(newHotel);
         console.log('destination hotel size = ' + newDestination.hotels.length);
         if (newDestination.hotels.length === 3) {
+          newDestination.save();
           cb(newDestination);
         }
       });
@@ -119,6 +120,7 @@ var createDestination = function(name, description, cb) {
         newDestination.hotels.push(newHotel);
         console.log('destination hotel size = ' + newDestination.hotels.length);
         if (newDestination.hotels.length === 3) {
+          newDestination.save();
           cb(newDestination);
         }
       });
@@ -127,6 +129,7 @@ var createDestination = function(name, description, cb) {
         newDestination.hotels.push(newHotel);
         console.log('destination hotel size = ' + newDestination.hotels.length);
         if (newDestination.hotels.length === 3) {
+          newDestination.save();
           cb(newDestination);
         }
       });
