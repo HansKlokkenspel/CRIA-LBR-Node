@@ -72,7 +72,6 @@ var destinationController = function(routeConfig, middlewareController) {
 var renderStrategy = function(req, paramHandler, cb) {
   var defaultParams = paramHandler.getDefaultParams(req);
   Destination.find(function(err, result) {
-    console.log(result);
     var params = {
       destinations: result,
     };
