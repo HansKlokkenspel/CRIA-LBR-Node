@@ -1,8 +1,6 @@
 var path = require('path');
 var appDir = path.dirname(require.main.filename);
 
-var navStructure = require(path.resolve(appDir, 'server/config/utils/navStructure'));
-
 var routeConfig = function() {
   var routes = {
     auth: '/auth',
@@ -12,14 +10,12 @@ var routeConfig = function() {
     destinations: '/destinations',
   };
 
-  var nav = {
-    structure: navStructure,
-  };
-
   var pages = {
     login: routes.auth + '/login',
     logout: routes.auth + '/logout',
     signup: routes.auth + '/signup',
+    google: routes.auth + '/google',
+    facebook: routes.auth + '/facebook',
     profile: {
       getIndex: routes.profile + '/index',
       getEdit: routes.profile + '/edit',
@@ -56,6 +52,8 @@ var routeConfig = function() {
     },
     admin: pages.admin.substring(1),
   };
+
+  var nav = require(path.resolve(appDir, 'server/config/utils/navStructure'))(routes, pages);
 
   return {
     routes: routes,

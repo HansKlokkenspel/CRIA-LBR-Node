@@ -4,10 +4,10 @@
   </a>
   <div class="nav-collapse collase">
     <ul class="nav navbar-nav">
-      <% for(var i = 0; i < nav.length; i++) {%>
+      <% for(var i = 0; i < nav.navStructure.length; i++) {%>
         <li>
-          <a href="<%=nav[i].Link%>">
-            <%=nav[i].Text%>
+          <a href="<%=nav.navStructure[i].Link%>">
+            <%= nav.navStructure[i].Text%>
           </a>
         </li>
         <% } %>
@@ -15,15 +15,7 @@
     <ul class="nav navbar-right navbar-nav">
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
-        <ul class="dropdown-menu">
-          <% if (!user) { %>
-            <li><a href="<%=pages['login']%>"> Login</a></li>
-            <li><a href="<%=pages['signup']%>"> Signup</a></li>
-            <% } else { %>
-              <li><a href="<%=pages['profile']%>"> Profile</a></li>
-              <li><a href="<%=pages['logout']%>"> logout</a></li>
-              <% } %>
-        </ul>
+        <% include ./profileDropdown %>
       </li>
     </ul>
   </div>

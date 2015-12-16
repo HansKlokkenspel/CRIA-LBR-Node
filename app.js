@@ -12,8 +12,6 @@ var mongoose = require('mongoose');
 var flash = require('connect-flash');
 var dbSeed = require(configLocation + 'startup/dbSeed');
 
-var nav = routeConfig.nav.structure;
-
 var middlewareController = require('./server/controllers/middlewareController')();
 
 var adminRouter = require(globalRoutes + 'adminRoutes')(routeConfig, middlewareController);
@@ -48,9 +46,10 @@ app.set('views', globalConfig.fileLocations.views);
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
+  console.log(routeConfig.nav);
   res.render('index', {
+    nav: routeConfig.nav,
     user: req.user,
-    nav: nav,
     pages: routeConfig.pages,
   });
 });

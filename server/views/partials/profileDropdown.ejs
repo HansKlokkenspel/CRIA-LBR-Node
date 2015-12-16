@@ -1,0 +1,11 @@
+<ul class="dropdown-menu">
+  <% for(var i = 0; i < nav.dropdown.length; i++) {%>
+    <% if (nav.dropdown[i].NeedsAuth && !user) { continue; }%>
+    <% if (nav.dropdown[i].HideWhenAuth && user) { continue; }%>
+      <li>
+        <a href="<%=nav.dropdown[i].Link%>">
+          <%= nav.dropdown[i].Text%>
+        </a>
+      </li>
+    <% } %>
+</ul>
