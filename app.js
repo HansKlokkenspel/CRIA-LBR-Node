@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
+var flash = require('connect-flash');
 var dbSeed = require(configLocation + 'startup/dbSeed');
 
 var nav = routeConfig.nav.structure;
@@ -30,6 +31,7 @@ app.use(express.static(globalConfig.fileLocations.assets));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(flash());
 
 require(configLocation + 'passport/passport')(app);
 

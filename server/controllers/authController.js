@@ -8,12 +8,14 @@ var authController = function(routeConfig) {
   var login = function(req, res) {
     res.render(viewsLocation.login, {
       pages: pages,
+      message: req.flash('loginMessage'),
     });
   };
 
   var signup = function(req, res) {
     res.render(viewsLocation.signup, {
       pages: pages,
+      message: req.flash('signupMessage'),
     });
   };
 

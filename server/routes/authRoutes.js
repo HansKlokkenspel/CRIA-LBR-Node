@@ -15,7 +15,8 @@ var router = function(routeConfig, middlewareController) {
   authRouter.route('/login')
     .post(passport.authenticate('local-login', {
       successRedirect: pages.profile.getIndex,
-      failureRedirect: '/',
+      failureRedirect: '/auth/login',
+      failureFlash: true,
     }));
 
   authRouter.route('/login')
@@ -53,7 +54,8 @@ var router = function(routeConfig, middlewareController) {
   authRouter.route('/signup')
     .post(passport.authenticate('local-signup', {
       successRedirect: pages.profile.getIndex,
-      failureRedirect: '/',
+      failureRedirect: '/auth/signup',
+      failureFlash: true,
     }));
 
   return authRouter;

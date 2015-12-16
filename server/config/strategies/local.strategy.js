@@ -21,8 +21,7 @@ var strategy = function() {
           }
 
           if (user) {
-            console.log('username has already been taken');
-            return done(null, false);
+            return done(null, false, req.flash('signupMessage', 'That email-address is already taken.'));
           } else {
             var user = new User();
 
@@ -67,13 +66,11 @@ var strategy = function() {
         }
 
         if (!user) {
-          console.log('User is not found!');
-          return done(null, false);
+          return done(null, false, req.flash('loginMessage', 'No user with this username has been found!'));
         }
 
         if (!user.validPassword(password)) {
-          console.log('The password is invalid!');
-          return done(null, false);
+          return done(null, false, req.flash('loginMessage', 'The password you filled in is incorrect'));
         }
 
         return done(null, user);
