@@ -12,8 +12,8 @@ var destinationController = function(routeConfig, middlewareController) {
   };
 
   var getDestinationById = function(req, res) {
-    var id = req.params.id;
-    res.render(req, paramHandler, function(params) {
+    var id = new ObjectId(req.params.id);
+    addRenderParams(req, paramHandler, function(params) {
       res.render(routeConfig.viewsLocation.destinations.getDestinationById, params);
     }, id);
   };
@@ -44,21 +44,13 @@ var destinationController = function(routeConfig, middlewareController) {
 
   var addDestination = function(req, res) {
     middlewareController.checkUserPrivileges(req, function(valid) {
-      if (valid) {
-        //allow post
-      } else {
-        //throw http error code
-      }
+      // if (valid) {} else {}
     });
   };
 
   var editDestinationById = function(req, res) {
     middlewareController.checkUserPrivileges(req, function(valid) {
-      if (valid) {
-        //allow post
-      } else {
-        //throw http error code
-      }
+      // if (valid) {} else {}
     });
   };
 
@@ -74,33 +66,37 @@ var destinationController = function(routeConfig, middlewareController) {
 
 var addRenderParams = function(req, paramHandler, cb, id) {
   var defaultParams = paramHandler.getDefaultParams(req);
-  console.log('id');
+
   console.log(id);
+
   if (typeof id !== 'undefined') {
     Destination.findOne({
-      _id: id
+      _id: id,
     }, function(err, result) {
-      var params = {
-        destination: result,
-      };
-      Object.assign(params, defaultParams);
-      console.log('params');
-      console.log(params);
-      cb(params);
+      populateDestination(result, function(params) {
+        Object.assign(params, defaultParams);
+        cb(params);
+      });
     });
   } else {
     Destination.find(function(err, result) {
-      Destination.populate(result, {
-        path: 'hotels'
-      }, function(err, dest) {
-        var params = {
-          destinations: result,
-        };
+      populateDestination(result, function(params) {
         Object.assign(params, defaultParams);
         cb(params);
       });
     });
   }
+};
+
+var populateDestination = function(result, cb) {
+  Destination.populate(result, {
+    path: 'hotels',
+  }, function(err, dest) {
+    var params = {
+      destinations: dest,
+    };
+    cb(params);
+  });
 };
 
 module.exports = destinationController;
