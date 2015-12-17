@@ -46,7 +46,6 @@ app.set('views', globalConfig.fileLocations.views);
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-  console.log(routeConfig.nav);
   res.render('index', {
     nav: routeConfig.nav,
     user: req.user,

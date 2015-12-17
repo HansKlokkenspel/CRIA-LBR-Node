@@ -26,7 +26,11 @@
 				<ul>
 					<% for(var i = 0; i < destinations.hotels.length; i++) {%>
 						<li>
-							<%=destinations.hotels[i]%>
+							<% for(var j = 0; j < destinations.hotels[i].arrangements.length; j++) {%>
+								<li>
+										<%=destinations.hotels[i].arrangements%>
+								</li>
+								<% } %>
 						</li>
 						<% } %>
 				</ul>

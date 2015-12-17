@@ -89,9 +89,8 @@ var addRenderParams = function(req, paramHandler, cb, id) {
 };
 
 var populateDestination = function(result, cb) {
-  Destination.populate(result, {
-    path: 'hotels',
-  }, function(err, dest) {
+  Destination.deepPopulate(result, 'hotels.arrangements', function(err, dest) {
+    console.log(dest);
     var params = {
       destinations: dest,
     };
