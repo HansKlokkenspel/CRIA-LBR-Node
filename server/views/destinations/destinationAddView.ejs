@@ -20,6 +20,17 @@
 				</div>
 			</div>
 			<div class="col col-sm-9">
+				<form action="/destinations/add" method="post">
+					<fieldset>
+						<label for="name">Name:</label>
+						<input type="text" name="name" placeholder="Enter destination name" />
+
+						<label for="description">Description:</label>
+						<textarea name="description" placeholder="Enter the description"></textarea>
+
+						<input type="submit" value="Submit destination" />
+					</fieldset>
+				</form>
 			</div>
 		</div>
 	</div>

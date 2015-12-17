@@ -109,7 +109,6 @@ var createDestination = function(name, description, cb) {
     if (!result) {
       createHotel(name, 'A super luxurious hotel', 9.7, function(newHotel) {
         newDestination.hotels.push(newHotel);
-        console.log('destination hotel size = ' + newDestination.hotels.length);
         if (newDestination.hotels.length === 3) {
           newDestination.save();
           cb(newDestination);
@@ -118,7 +117,6 @@ var createDestination = function(name, description, cb) {
 
       createHotel('El grande ' + name, 'A luxurious hotel', 7.8, function(newHotel) {
         newDestination.hotels.push(newHotel);
-        console.log('destination hotel size = ' + newDestination.hotels.length);
         if (newDestination.hotels.length === 3) {
           newDestination.save();
           cb(newDestination);
@@ -127,7 +125,6 @@ var createDestination = function(name, description, cb) {
 
       createHotel('The ' + name, 'A not so luxurious hotel', 6.9, function(newHotel) {
         newDestination.hotels.push(newHotel);
-        console.log('destination hotel size = ' + newDestination.hotels.length);
         if (newDestination.hotels.length === 3) {
           newDestination.save();
           cb(newDestination);
@@ -145,7 +142,6 @@ var createHotel = function(name, description, rating, cb) {
 
   createArrangement('Full pension', 'Full pension for this hotel', 699, 4, function(newArrangement) {
     newHotel.arrangements.push(newArrangement);
-    console.log('Arrangement size = ' + newHotel.arrangements.length);
     if (newHotel.arrangements.length === 3) {
       newHotel.save(function(err, result) {
         cb(newHotel);
@@ -155,7 +151,6 @@ var createHotel = function(name, description, rating, cb) {
 
   createArrangement('Half pension', 'Half pension for this hotel', 349, 4, function(newArrangement) {
     newHotel.arrangements.push(newArrangement);
-    console.log('Arrangement size = ' + newHotel.arrangements.length);
     if (newHotel.arrangements.length === 3) {
       newHotel.save(function(err, result) {
         cb(newHotel);
@@ -165,7 +160,6 @@ var createHotel = function(name, description, rating, cb) {
 
   createArrangement('breakfast', 'Breakfast for this hotel', 49, 4, function(newArrangement) {
     newHotel.arrangements.push(newArrangement);
-    console.log('Arrangement size = ' + newHotel.arrangements.length);
     if (newHotel.arrangements.length === 3) {
       newHotel.save(function(err, result) {
         cb(newHotel);
@@ -186,7 +180,6 @@ var createCountry = function(name, description, destination) {
     if (!result) {
       createDestination(destination, destination + ' bootifuru', function(newDestination) {
         newCountry.destinations.push(newDestination);
-        console.log('Country destination size = ' + newCountry.destinations.length);
         if (newCountry.destinations.length === 3) {
           newCountry.save();
         }
@@ -194,7 +187,6 @@ var createCountry = function(name, description, destination) {
 
       createDestination(destination + ' other', 'Best destination ever', function(newDestination) {
         newCountry.destinations.push(newDestination);
-        console.log('Country destination size = ' + newCountry.destinations.length);
         if (newCountry.destinations.length === 3) {
           newCountry.save();
         }
@@ -202,7 +194,6 @@ var createCountry = function(name, description, destination) {
 
       createDestination(destination + ' another after the other', 'Best destination ever', function(newDestination) {
         newCountry.destinations.push(newDestination);
-        console.log('Country destination size = ' + newCountry.destinations.length);
         if (newCountry.destinations.length === 3) {
           newCountry.save();
         }
