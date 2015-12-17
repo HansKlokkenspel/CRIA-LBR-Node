@@ -28,7 +28,13 @@
 						<li>
 							<% for(var j = 0; j < destinations.hotels[i].arrangements.length; j++) {%>
 								<li>
-										<%=destinations.hotels[i].arrangements%>
+										<%=destinations.hotels[i].arrangements[j].name%>
+									</br>
+										<%=destinations.hotels[i].arrangements[j].description%>
+									</br>
+										<%=destinations.hotels[i].arrangements[j].price%>
+									</br>
+										<%=destinations.hotels[i].arrangements[j].people%>
 								</li>
 								<% } %>
 						</li>
