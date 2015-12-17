@@ -29,17 +29,6 @@ var destinationController = function(routeConfig, middlewareController) {
     });
   };
 
-  var getEditDestinationById = function(req, res) {
-    middlewareController.checkUserPrivileges(req, function(valid) {
-      if (valid) {
-        res.render(routeConfig.viewsLocation.destinations.getAddDestination,
-          paramHandler.getDefaultParams(req));
-      } else {
-        res.redirect('/');
-      }
-    });
-  };
-
   // <------------------------------POST------------------------------>
 
   var addDestination = function(req, res) {
@@ -48,18 +37,28 @@ var destinationController = function(routeConfig, middlewareController) {
     });
   };
 
+  // <------------------------------PUT------------------------------>
+
   var editDestinationById = function(req, res) {
     middlewareController.checkUserPrivileges(req, function(valid) {
       // if (valid) {} else {}
     });
   };
 
+    // <------------------------------DELETE------------------------------>
+
+    var deleteDestinationById = function(req, res) {
+      middlewareController.checkUserPrivileges(req, function(valid) {
+        // if (valid) {} else {}
+      });
+    };
+
   return {
     getDestinationIndex: getDestinationIndex,
     getDestinationById: getDestinationById,
     addDestination: addDestination,
     getAddDestination: getAddDestination,
-    getEditDestinationById: getEditDestinationById,
+    deleteDestinationById: deleteDestinationById,
     editDestinationById: editDestinationById,
   };
 };

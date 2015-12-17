@@ -17,16 +17,20 @@ var router = function(routeConfig, middlewareController) {
   bookingRouter.route('/:id')
     .get(bookingController.getBookingById);
 
-  bookingRouter.route('/edit/:id')
-    .get(bookingController.getEditBookingById);
-
   // <------------------------------POST------------------------------>
 
   bookingRouter.route('/add')
     .post(bookingController.addBooking);
 
-  bookingRouter.route('/edit/:id')
-    .post(bookingController.editBookingById);
+  // <------------------------------PUT------------------------------>
+
+  bookingRouter.route('/:id')
+    .put(bookingController.editBookingById);
+
+  // <------------------------------DELETE------------------------------>
+
+  bookingRouter.route('/:id')
+    .delete(bookingController.deleteBookingById);
 
   return bookingRouter;
 };

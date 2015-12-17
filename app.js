@@ -26,8 +26,8 @@ var app = express();
 var db = mongoose.connect(globalConfig.mongoDB.url + globalConfig.mongoDB.database);
 
 app.use(express.static(globalConfig.fileLocations.assets));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(flash());
 

@@ -17,16 +17,20 @@ var router = function(routeConfig, middlewareController) {
   destinationRoutes.route('/:id')
     .get(destinationController.getDestinationById);
 
-  destinationRoutes.route('/edit/:id')
-    .get(destinationController.getEditDestinationById);
-
   // <------------------------------POST------------------------------>
 
   destinationRoutes.route('/add')
     .post(destinationController.addDestination);
 
-  destinationRoutes.route('/edit/:id')
-    .post(destinationController.editDestinationById);
+  // <------------------------------PUT------------------------------>
+
+  destinationRoutes.route('/:id')
+    .put(destinationController.editDestinationById);
+
+  // <------------------------------DELETE------------------------------>
+
+  destinationRoutes.route('/:id')
+    .delete(destinationController.deleteDestinationById);
 
   return destinationRoutes;
 };
