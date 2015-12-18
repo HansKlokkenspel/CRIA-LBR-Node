@@ -96,8 +96,12 @@ var destinationController = function (routeConfig, middlewareController) {
 // <------------------------------DELETE------------------------------>
 
         var deleteDestinationById = function (req, res) {
+            var id = new ObjectId(req.params.id);
             middlewareController.checkUserPrivileges(req, function (valid) {
-                // if (valid) {} else {}
+                if (valid) {
+                    //Destination.
+                } else {
+                }
             });
         };
 

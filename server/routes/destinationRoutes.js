@@ -29,8 +29,8 @@ var router = function(routeConfig, middlewareController) {
 
   // <------------------------------DELETE------------------------------>
 
-  destinationRoutes.route('/:id')
-    .delete(destinationController.deleteDestinationById);
+  destinationRoutes.route('delete/:id')
+    .get(destinationController.deleteDestinationById);
 
   return destinationRoutes;
 };
