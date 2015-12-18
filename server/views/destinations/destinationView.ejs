@@ -41,6 +41,7 @@
                 <% } %>
             </ul>
         </div>
+        <% if(user.role.name === 'Admin'){ %>
         <form action="/destinations/<%=destinations._id%>" method="post">
             <fieldset>
                 <label for="name">Name:</label>
@@ -52,6 +53,7 @@
                 <input type="submit" value="Edit destination"/>
             </fieldset>
         </form>
+        <% } %>
     </div>
 </div>
 <footer>
