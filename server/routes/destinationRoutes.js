@@ -25,7 +25,7 @@ var router = function(routeConfig, middlewareController) {
   // <------------------------------PUT------------------------------>
 
   destinationRoutes.route('/:id')
-    .put(destinationController.editDestinationById);
+    .post(destinationController.editDestinationById);
 
   // <------------------------------DELETE------------------------------>
 

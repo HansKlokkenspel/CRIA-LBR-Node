@@ -2,50 +2,61 @@
 <html lang="en">
 
 <head>
-	<% include ../partials/head %>
+    <% include ../partials/head %>
 </head>
 
 <body>
-	<nav class="navbar navbar-static">
-		<% include ../partials/nav %>
-	</nav>
-	<header class="masthead">
-		<% include ../partials/header %>
-	</header <!-- Begin Body -->
-	<div class="container">
-		<div class="row">
-			<div class="col col-sm-3">
-				<div id="sidebar">
-					<% include ../partials/sidebar %>
-				</div>
-			</div>
-			<div class="col col-sm-9">
-				<p>
-					<%=destinations.description%>
-				</p>
-				<ul>
-					<% for(var i = 0; i < destinations.hotels.length; i++) {%>
-						<li>
-							<% for(var j = 0; j < destinations.hotels[i].arrangements.length; j++) {%>
-								<li>
-										<%=destinations.hotels[i].arrangements[j].name%>
-									</br>
-										<%=destinations.hotels[i].arrangements[j].description%>
-									</br>
-										<%=destinations.hotels[i].arrangements[j].price%>
-									</br>
-										<%=destinations.hotels[i].arrangements[j].people%>
-								</li>
-								<% } %>
-						</li>
-						<% } %>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<footer>
-		<% include ../partials/footer %>
-	</footer>
+<nav class="navbar navbar-static">
+    <% include ../partials/nav %>
+</nav>
+<header class="masthead">
+    <% include ../partials/header %>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col col-sm-3">
+            <div id="sidebar">
+                <% include ../partials/sidebar %>
+            </div>
+        </div>
+        <div class="col col-sm-9">
+            <p>
+                <%= destinations.description %>
+            </p>
+            <ul>
+                <% for(var i = 0; i < destinations.hotels.length; i++) { %>
+                <li>
+                    <% for(var j = 0; j < destinations.hotels[i].arrangements.length; j++) { %>
+                <li>
+                    <%= destinations.hotels[i].arrangements[j].name %>
+                    </br>
+                    <%= destinations.hotels[i].arrangements[j].description %>
+                    </br>
+                    <%= destinations.hotels[i].arrangements[j].price %>
+                    </br>
+                    <%= destinations.hotels[i].arrangements[j].people %>
+                </li>
+                <% } %>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <form action="/destinations/<%=destinations._id%>" method="post">
+            <fieldset>
+                <label for="name">Name:</label>
+                <input type="text" name="name" placeholder="Enter destination name"/>
+
+                <label for="description">Description:</label>
+                <textarea name="description" placeholder="Enter the description"></textarea>
+
+                <input type="submit" value="Edit destination"/>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<footer>
+    <% include ../partials/footer %>
+</footer>
 </body>
 
 </html>

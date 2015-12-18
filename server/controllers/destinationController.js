@@ -24,6 +24,7 @@ var destinationController = function (routeConfig, middlewareController) {
                 res.render(routeConfig.viewsLocation.destinations.getAddDestination,
                     paramHandler.getDefaultParams(req));
             } else {
+                req.flash('error_messages', 'You are not an admin!');
                 res.redirect('/');
             }
         });
@@ -42,6 +43,7 @@ var destinationController = function (routeConfig, middlewareController) {
 
                 destination.save(function (err, result) {
                     if (result) {
+                        req.flash('succes_messages', 'Destination has been succesfully saved!');
                         res.redirect(routeConfig.routes.destinations + '/' + result._id);
                     } else {
                         req.flash('error_messages', err.message);
@@ -49,6 +51,7 @@ var destinationController = function (routeConfig, middlewareController) {
                     }
                 });
             } else {
+                req.flash('error_messages', 'You dont have the right privileges');
                 res.redirect('/');
             }
         });
@@ -57,8 +60,33 @@ var destinationController = function (routeConfig, middlewareController) {
     // <------------------------------PUT------------------------------>
 
     var editDestinationById = function (req, res) {
+        var id = new ObjectId(req.params.id);
+        Destination.findOne({
+            _id: id
+        }, function (err, result) {
+            populateDestination(result, function (params) {
+                if (params) {
+                    result.name = req.body.name;
+                    result.description = req.body.description;
+                    //result.hotels = req.body.hotels;
+
+                    result.save(function (err, result) {
+                        if (result) {
+                            res.redirect(routeConfig.routes.destinations + '/' + result._id);
+                        } else {
+                            req.flash('error_messages', err.message);
+                            res.redirect('/');
+                        }
+                    });
+                }
+            });
+        });
+
         middlewareController.checkUserPrivileges(req, function (valid) {
-            // if (valid) {} else {}
+            if (valid) {
+
+            } else {
+            }
         });
     };
 
