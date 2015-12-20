@@ -20,7 +20,8 @@ var ArrangementSchema = Schema({
     people: {
         type: Number,
         required: true,
-        min: 1
+        min: 1,
+        max: 10
     }
 });
 

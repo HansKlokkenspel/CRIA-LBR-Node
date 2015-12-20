@@ -5,8 +5,7 @@ var CountrySchema = Schema({
     name: {
         type: String,
         required: true,
-        maxlength: 25,
-        minlength: 5
+        maxlength: 50
     },
     description: {
         type: String,

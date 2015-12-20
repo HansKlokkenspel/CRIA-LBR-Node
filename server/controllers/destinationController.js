@@ -25,7 +25,7 @@ var destinationController = function (routeConfig, middlewareController) {
                         paramHandler.getDefaultParams(req));
                 } else {
                     req.flash('error_messages', 'You are not an admin!');
-                    res.redirect('/');
+                    res.redirect(routeConfig.pages.destinations.getDestinationIndex);
                 }
             });
         };
@@ -47,12 +47,12 @@ var destinationController = function (routeConfig, middlewareController) {
                             res.redirect(routeConfig.routes.destinations + '/' + result._id);
                         } else {
                             req.flash('error_messages', err.message);
-                            res.redirect('/');
+                            res.redirect(routeConfig.pages.destinations.getDestinationIndex);
                         }
                     });
                 } else {
                     req.flash('error_messages', 'You dont have the right privileges');
-                    res.redirect('/');
+                    res.redirect(routeConfig.pages.destinations.getDestinationIndex);
                 }
             });
         };
@@ -74,12 +74,12 @@ var destinationController = function (routeConfig, middlewareController) {
                                     res.redirect(routeConfig.routes.destinations + '/' + result._id);
                                 } else {
                                     req.flash('error_messages', err.message);
-                                    res.redirect('/');
+                                    res.redirect(routeConfig.pages.destinations.getDestinationIndex);
                                 }
                             });
                         } else {
                             req.flash('error_messages', err.message);
-                            res.redirect('/');
+                            res.redirect(routeConfig.pages.destinations.getDestinationIndex);
                         }
                     }
                 );
@@ -99,8 +99,19 @@ var destinationController = function (routeConfig, middlewareController) {
             var id = new ObjectId(req.params.id);
             middlewareController.checkUserPrivileges(req, function (valid) {
                 if (valid) {
-                    //Destination.
+                    Destination.remove({
+                        _id: id
+                    }, function (err) {
+                        if (err) {
+                            req.flash('error_messages', err);
+                        } else {
+                            req.flash('succes_messages', 'The destination has been succesfully removed!');
+                        }
+                        res.redirect('/');
+                    });
                 } else {
+                    req.flash('error_messages', 'You are not authorized to do this!');
+                    res.redirect('/');
                 }
             });
         };
