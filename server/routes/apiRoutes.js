@@ -1,9 +1,8 @@
 var express = require('express');
-var passport = require('passport');
 var apiRouter = express.Router();
 
 var router = function (middlewareController) {
-    var apiController = require('../controllers/apiController');
+    var apiController = require('../controllers/apiController')();
 
     // <------------------------------GET------------------------------>
 
