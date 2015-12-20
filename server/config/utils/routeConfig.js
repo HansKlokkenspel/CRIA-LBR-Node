@@ -3,6 +3,7 @@ var appDir = path.dirname(require.main.filename);
 
 var routeConfig = function() {
   var routes = {
+    api: '/api',
     auth: '/auth',
     admin: '/admin',
     profile: '/profile',

@@ -14,6 +14,7 @@ var dbSeed = require(configLocation + 'startup/dbSeed');
 
 var middlewareController = require('./server/controllers/middlewareController')();
 
+var apiRouter = require(globalRoutes + 'apiRoutes')(middlewareController);
 var adminRouter = require(globalRoutes + 'adminRoutes')(routeConfig, middlewareController);
 var authRouter = require(globalRoutes + 'authRoutes')(routeConfig, middlewareController);
 var userRouter = require(globalRoutes + 'userRoutes')(routeConfig, middlewareController);
@@ -35,6 +36,7 @@ require(configLocation + 'passport/passport')(app);
 
 var routes = routeConfig.routes;
 
+app.use(routes.api, apiRouter);
 app.use(routes.auth, authRouter);
 app.use(routes.admin, adminRouter);
 app.use(routes.profile, userRouter);

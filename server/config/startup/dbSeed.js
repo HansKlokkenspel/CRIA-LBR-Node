@@ -75,7 +75,6 @@ var dbSeed = function () {
     };
 };
 
-
 var createUser = function (email, password, roleName) {
     var newUser = new User();
     newUser.local.email = email;
