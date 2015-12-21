@@ -22,7 +22,7 @@ var ModelRepository = function (modelName) {
             if (err) {
                 cb({error: err});
             } else {
-                populateModel(result, function (popResult) {
+                populateModel(result, Model, function (popResult) {
                     cb(popResult);
                 });
             }
@@ -78,7 +78,7 @@ var ModelRepository = function (modelName) {
 
         newModel.save(function (err, result) {
             if (result) {
-                cb({result: popResult});
+                cb({result: result});
             } else {
                 cb({error: err});
             }

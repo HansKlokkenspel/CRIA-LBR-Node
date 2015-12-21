@@ -18,7 +18,7 @@ var DestinationSchema = Schema({
     hotels: [{
         type: Schema.Types.ObjectId,
         ref: 'Hotel',
-        required: true
+        //required: true
     }]
 });
 

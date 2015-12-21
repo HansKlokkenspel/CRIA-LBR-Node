@@ -38,7 +38,13 @@ var apiController = function () {
     };
 
     var getDestinationById = function (req, res) {
+        destinationRepository.findModelById(req.params.id, function(result){
+            if(result.hasOwnProperty('error')){
+                res.send(result.error);
+            }
 
+            res.json(result);
+        });
     };
 
     var addUser = function (req, res) {
