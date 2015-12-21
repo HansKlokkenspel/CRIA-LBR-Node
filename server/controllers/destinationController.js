@@ -1,5 +1,6 @@
 var modelRepository = require('../repositories/modelRepository')('destinationModel');
 var Destination = require('../models/destinationModel');
+var paginate = require('express-paginate');
 
 var destinationController = function (routeConfig, middlewareController) {
     var paramHandler = require('../config/utils/paramHandler')(routeConfig);
@@ -7,7 +8,7 @@ var destinationController = function (routeConfig, middlewareController) {
     // <------------------------------GET------------------------------>
     var getDestinationIndex = function (req, res) {
         addRenderParams(req, paramHandler, function (params) {
-            console.log(params);
+            console.log(params.pagination);
             res.render(routeConfig.viewsLocation.destinations.getDestinationIndex, params);
         });
     };
@@ -35,7 +36,7 @@ var destinationController = function (routeConfig, middlewareController) {
     var addDestination = function (req, res) {
         middlewareController.checkUserPrivileges(req, function (valid) {
             if (valid) {
-                modelRepository.addModel(req.body, function(newDestination){
+                modelRepository.addModel(req.body, function (newDestination) {
                     if (newDestination.hasOwnProperty('result')) {
                         req.flash('succes_messages', 'Destination has been succesfully saved!');
                         res.redirect(routeConfig.routes.destinations + '/' + newDestination.result._id);
@@ -98,26 +99,29 @@ var addRenderParams = function (req, paramHandler, cb) {
     var id = req.params.id;
     var defaultParams = paramHandler.getDefaultParams(req);
 
+    if (!req.query.page) {
+        req.query.page = 1;
+    }
+
     if (typeof id !== 'undefined') {
         modelRepository.findModelById(id, function (popResult) {
             cb(joinParams(popResult, defaultParams));
         });
     } else {
-        modelRepository.findModels({}, function (popResult) {
-
-            Destination.paginate().then(function(paginationResult){
-                modelRepository.populateModel(paginationResult.docs, Destination, function(pagePopResult){
-                    cb(joinParams(paginationResult, defaultParams));
-                });
-            });
-
+        modelRepository.paginateModel({}, req.query.page, 5, function (paginationResult) {
+            cb(joinParams(paginationResult, defaultParams));
         });
     }
 };
 
 var joinParams = function (result, defaultParams) {
+    console.log(result);
     params = {
-        destinations: result.docs
+        destinations: result.docs,
+        pagination: {
+            currentPage: result.page,
+            totalPageCount: result.pages
+        }
     };
 
     return Object.assign(params, defaultParams);

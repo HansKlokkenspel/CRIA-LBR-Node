@@ -2,53 +2,54 @@
 <html lang="en">
 
 <head>
-	<% include ../partials/head %>
+    <% include ../partials/head %>
 </head>
 
 <body>
-	<nav class="navbar navbar-static">
-		<% include ../partials/nav %>
-	</nav>
-	<header class="masthead">
-		<% include ../partials/header %>
-	</header>
-	<div class="container">
-		<div class="row">
-			<div class="col col-sm-3">
-				<div id="sidebar">
-					<% include ../partials/sidebar %>
-				</div>
-			</div>
-			<div class="col col-sm-9">
-				<button><a href="<%=pages.destinations.getAddDestination%>">Add destination</a></button>
-				<ul>
-					<% for(var i = 0; i < destinations.length; i++) {%>
-						<li>
-							<a href="<%=pages.destinations.getDestinationIndex%>/<%=destinations[i]._id%>">
-								<%=destinations[i].name%>
-							</a>
-							<p>
-								<%=destinations[i].description%>
-							</p>
-							<ul>
-								<% for(var j = 0; j < destinations[i].hotels.length; j++) {%>
-									<li>
-										<%=destinations[i].hotels[j].name%>
-									</li>
-									<li>
-										<%=destinations[i].hotels[j].rating%>
-									</li>
-									<% } %>
-							</ul>
-						</li>
-						<% } %>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<footer>
-		<% include ../partials/footer %>
-	</footer>
+<nav class="navbar navbar-static">
+    <% include ../partials/nav %>
+</nav>
+<header class="masthead">
+    <% include ../partials/header %>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col col-sm-3">
+            <div id="sidebar">
+                <% include ../partials/sidebar %>
+            </div>
+        </div>
+        <div class="col col-sm-9">
+            <button><a href="<%= pages.destinations.getAddDestination %>">Add destination</a></button>
+            <ul>
+                <% for(var i = 0; i < destinations.length; i++) { %>
+                <li>
+                    <a href="<%= pages.destinations.getDestinationIndex %>/<%= destinations[i]._id %>">
+                        <%= destinations[i].name %>
+                    </a>
+                    <p>
+                        <%= destinations[i].description %>
+                    </p>
+                    <ul>
+                        <% for(var j = 0; j < destinations[i].hotels.length; j++) { %>
+                        <li>
+                            <%= destinations[i].hotels[j].name %>
+                        </li>
+                        <li>
+                            <%= destinations[i].hotels[j].rating %>
+                        </li>
+                        <% } %>
+                    </ul>
+                </li>
+                <% } %>
+            </ul>
+            <% include ../partials/pagination %>
+        </div>
+    </div>
+</div>
+<footer>
+    <% include ../partials/footer %>
+</footer>
 </body>
 
 </html>

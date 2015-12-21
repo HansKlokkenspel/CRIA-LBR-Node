@@ -99,13 +99,22 @@ var ModelRepository = function (modelName) {
         }
     };
 
+    var paginateModel = function (query, currentPage, limit, cb) {
+        Model.paginate({}, {page: currentPage /*req.query.page*/, limit: limit}, function (err, paginationResult) {
+            populateModel(paginationResult.docs, Model, function (pagePopResult) {
+                cb(paginationResult);
+            });
+        });
+    }
+
     return {
         findModels: findModels,
         findModelById: findModelById,
         editModelById: editModelById,
         deleteModelById: deleteModelById,
         addModel: addModel,
-        populateModel: populateModel
+        populateModel: populateModel,
+        paginateModel: paginateModel
     };
 };
 module.exports = ModelRepository;
