@@ -22,6 +22,10 @@ var DestinationSchema = Schema({
     }]
 });
 
+DestinationSchema.methods.getPopulationPath = function(){
+    return 'hotels.arrangements';
+};
+
 DestinationSchema.plugin(deepPopulate);
 
 module.exports = mongoose.model('Destination', DestinationSchema);

@@ -1,4 +1,6 @@
 var ObjectId = require('mongodb').ObjectID;
+var Destination = require('../models/destinationModel');
+var User = require('../models/userModel');
 
 var ModelRepository = function (modelName) {
     var Model = require('../models/' + modelName + '');
@@ -93,29 +95,19 @@ var ModelRepository = function (modelName) {
 };
 
 var populateModel = function (result, Model, cb) {
-    var objectIdRegex = /^[a-f\d]{24}$/i;
+    var hydratedResult = Model.hydrate(result);
 
-        for (var i = 0; i < result.length; i++) {
-            var obj = result[i];
-
-            for(var key in obj){
-                console.log(obj[key]);
-                console.log(key.name);
-                //if (result[key].match(objectIdRegex)) {
-                //    Model.deepPopulate(result, function (err, popResult) {
-                //        if (!err) {
-                //            cb({result: popResult});
-                //        } else {
-                //            cb({error: err});
-                //        }
-                //    });
-                //} else{
-                //    cb({result: result});
-                //}
+    if(typeof hydratedResult.getPopulationPath === 'function'){
+        Model.deepPopulate(result, hydratedResult.getPopulationPath(), function (err, popResult) {
+            if (!err) {
+                cb({result: popResult});
+            } else {
+                cb({error: err});
             }
-        }
-
-    cb(result);
+        });
+    } else {
+        cb(result);
+    }
 };
 
 module.exports = ModelRepository;

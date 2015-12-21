@@ -88,6 +88,7 @@ var destinationRepository = function () {
 var populateDestination = function (result, cb) {
     Destination.deepPopulate(result, 'hotels.arrangements', function (err, popResult) {
         if (!err) {
+            console.log(popResult);
             cb(popResult);
         } else {
             cb(err);
