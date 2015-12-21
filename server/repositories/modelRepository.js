@@ -5,8 +5,8 @@ var User = require('../models/userModel');
 var ModelRepository = function (modelName) {
     var Model = require('../models/' + modelName + '');
 
-    var findModels = function (cb) {
-        Model.find(function (err, result) {
+    var findModels = function (query, cb) {
+        Model.find(query, function (err, result) {
             populateModel(result, Model, function (popResult) {
                 cb(popResult);
             });
@@ -82,29 +82,30 @@ var ModelRepository = function (modelName) {
         });
     };
 
+    var populateModel = function (result, Model, cb) {
+        var hydratedResult = Model.hydrate(result);
+
+        if (typeof hydratedResult.getPopulationPath === 'function') {
+            Model.deepPopulate(result, hydratedResult.getPopulationPath(), function (err, popResult) {
+                if (!err) {
+                    result = popResult;
+                    cb({result: result});
+                } else {
+                    cb({error: err});
+                }
+            });
+        } else {
+            cb(result);
+        }
+    };
+
     return {
         findModels: findModels,
         findModelById: findModelById,
         editModelById: editModelById,
         deleteModelById: deleteModelById,
-        addModel: addModel
+        addModel: addModel,
+        populateModel: populateModel
     };
 };
-
-var populateModel = function (result, Model, cb) {
-    var hydratedResult = Model.hydrate(result);
-
-    if (typeof hydratedResult.getPopulationPath === 'function') {
-        Model.deepPopulate(result, hydratedResult.getPopulationPath(), function (err, popResult) {
-            if (!err) {
-                cb({result: popResult});
-            } else {
-                cb({error: err});
-            }
-        });
-    } else {
-        cb(result);
-    }
-};
-
 module.exports = ModelRepository;

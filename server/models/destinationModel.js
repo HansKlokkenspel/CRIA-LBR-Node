@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
+var mongoosePaginate = require('mongoose-paginate');
 var Schema = mongoose.Schema;
 
 var DestinationSchema = Schema({
@@ -27,5 +28,6 @@ DestinationSchema.methods.getPopulationPath = function(){
 };
 
 DestinationSchema.plugin(deepPopulate);
+DestinationSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Destination', DestinationSchema);

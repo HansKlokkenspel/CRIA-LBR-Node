@@ -1,5 +1,5 @@
-var destinationRepository = require('../repositories/destinationRepository')();
 var modelRepository = require('../repositories/modelRepository')('destinationModel');
+var Destination = require('../models/destinationModel');
 
 var destinationController = function (routeConfig, middlewareController) {
     var paramHandler = require('../config/utils/paramHandler')(routeConfig);
@@ -7,6 +7,7 @@ var destinationController = function (routeConfig, middlewareController) {
     // <------------------------------GET------------------------------>
     var getDestinationIndex = function (req, res) {
         addRenderParams(req, paramHandler, function (params) {
+            console.log(params);
             res.render(routeConfig.viewsLocation.destinations.getDestinationIndex, params);
         });
     };
@@ -102,15 +103,21 @@ var addRenderParams = function (req, paramHandler, cb) {
             cb(joinParams(popResult, defaultParams));
         });
     } else {
-        modelRepository.findModels(function (popResult) {
-            cb(joinParams(popResult, defaultParams));
+        modelRepository.findModels({}, function (popResult) {
+
+            Destination.paginate().then(function(paginationResult){
+                modelRepository.populateModel(paginationResult.docs, Destination, function(pagePopResult){
+                    cb(joinParams(paginationResult, defaultParams));
+                });
+            });
+
         });
     }
 };
 
 var joinParams = function (result, defaultParams) {
     params = {
-        destinations: result.result
+        destinations: result.docs
     };
 
     return Object.assign(params, defaultParams);

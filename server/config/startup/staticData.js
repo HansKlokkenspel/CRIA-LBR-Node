@@ -8,8 +8,8 @@ var Country = require('../../models/countryModel');
 var faker = require('faker');
 
 var staticData = function () {
-    var destinationsPerCountry = 7;
-    var hotelsPerDestination = 5;
+    var destinationsPerCountry = 1;
+    var hotelsPerDestination = 1;
 
     var dest1 = new Destination();
     var dest2 = new Destination();

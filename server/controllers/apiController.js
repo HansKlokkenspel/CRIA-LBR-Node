@@ -28,7 +28,7 @@ var apiController = function () {
     };
 
     var getDestinations = function (req, res) {
-        destinationRepository.findModels(function(result){
+        destinationRepository.findModels({}, function(result){
             if(result.hasOwnProperty('error')){
                 res.send(result.error);
             }
