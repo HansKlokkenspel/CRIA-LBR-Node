@@ -20,6 +20,19 @@
             </div>
         </div>
         <div class="col col-sm-9">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <form method="get" action="/destinations" autocomplete="off" class="navbar-search pull-left">
+                            <span class="input-group-btn">
+                                <input type="text" class="form-control" name="name" data-provide="typeahead"
+                                       placeholder="Search for a destination..."/>
+                              <input type="submit" value="Search" class="btn btn-default"/>
+                          </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <button><a href="<%= pages.destinations.getAddDestination %>">Add destination</a></button>
             <ul>
                 <% for(var i = 0; i < destinations.length; i++) { %>

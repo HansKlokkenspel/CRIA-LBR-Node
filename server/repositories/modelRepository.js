@@ -5,8 +5,8 @@ var User = require('../models/userModel');
 var ModelRepository = function (modelName) {
     var Model = require('../models/' + modelName + '');
 
-    var findModels = function (query, cb) {
-        Model.find(query, function (err, result) {
+    var findModels = function (queryString, cb) {
+        Model.find(createQuery(queryString), function (err, result) {
             populateModel(result, Model, function (popResult) {
                 cb(popResult);
             });
@@ -99,13 +99,26 @@ var ModelRepository = function (modelName) {
         }
     };
 
-    var paginateModel = function (query, currentPage, limit, cb) {
-        Model.paginate({}, {page: currentPage /*req.query.page*/, limit: limit}, function (err, paginationResult) {
+    var paginateModel = function (queryString, currentPage, limit, cb) {
+        var query = createQuery(queryString);
+        Model.paginate(query, {page: currentPage /*req.query.page*/, limit: limit}, function (err, paginationResult) {
             populateModel(paginationResult.docs, Model, function (pagePopResult) {
                 cb(paginationResult);
             });
         });
-    }
+    };
+
+    var createQuery = function (queryString) {
+        var query = {};
+
+        for (var key in queryString) {
+            if (key in Model) {
+                query[key] = queryString[key];
+            }
+        }
+
+        return query;
+    };
 
     return {
         findModels: findModels,
@@ -114,7 +127,9 @@ var ModelRepository = function (modelName) {
         deleteModelById: deleteModelById,
         addModel: addModel,
         populateModel: populateModel,
-        paginateModel: paginateModel
+        paginateModel: paginateModel,
+        createQuery: createQuery
     };
 };
+
 module.exports = ModelRepository;

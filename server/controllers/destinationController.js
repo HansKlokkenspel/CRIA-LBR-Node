@@ -4,29 +4,29 @@ var paginate = require('express-paginate');
 
 var destinationController = function (routeConfig, middlewareController) {
     var paramHandler = require('../config/utils/paramHandler')(routeConfig);
-
+    var viewsLocation = routeConfig.viewsLocation.destinations;
+    var pages = routeConfig.pages.destinations;
     // <------------------------------GET------------------------------>
     var getDestinationIndex = function (req, res) {
         addRenderParams(req, paramHandler, function (params) {
-            console.log(params.pagination);
-            res.render(routeConfig.viewsLocation.destinations.getDestinationIndex, params);
+            res.render(viewsLocation.getDestinationIndex, params);
         });
     };
 
     var getDestinationById = function (req, res) {
         addRenderParams(req, paramHandler, function (params) {
-            res.render(routeConfig.viewsLocation.destinations.getDestinationById, params);
+            res.render(viewsLocation.getDestinationById, params);
         });
     };
 
     var getAddDestination = function (req, res) {
         middlewareController.checkUserPrivileges(req, function (valid) {
             if (valid) {
-                res.render(routeConfig.viewsLocation.destinations.getAddDestination,
+                res.render(viewsLocation.getAddDestination,
                     paramHandler.getDefaultParams(req));
             } else {
                 req.flash('error_messages', 'You are not an admin!');
-                res.redirect(routeConfig.pages.destinations.getDestinationIndex);
+                res.redirect(pages.getDestinationIndex);
             }
         });
     };
@@ -42,12 +42,12 @@ var destinationController = function (routeConfig, middlewareController) {
                         res.redirect(routeConfig.routes.destinations + '/' + newDestination.result._id);
                     } else {
                         req.flash('error_messages', err.message);
-                        res.redirect(routeConfig.pages.destinations.getDestinationIndex);
+                        res.redirect(pages.getDestinationIndex);
                     }
                 });
             } else {
                 req.flash('error_messages', 'You dont have the right privileges');
-                res.redirect(routeConfig.pages.destinations.getDestinationIndex);
+                res.redirect(pages.getDestinationIndex);
             }
         });
     };
@@ -60,7 +60,7 @@ var destinationController = function (routeConfig, middlewareController) {
                 res.redirect(routeConfig.routes.destinations + '/' + saveResult.result._id);
             } else {
                 req.flash('error_messages', saveResult.error.message);
-                res.redirect(routeConfig.pages.destinations.getDestinationIndex);
+                res.redirect(pages.getDestinationIndex);
             }
         });
     };
@@ -76,11 +76,11 @@ var destinationController = function (routeConfig, middlewareController) {
                     } else {
                         req.flash('succes_messages', 'The destination has been succesfully removed!');
                     }
-                    res.redirect(routeConfig.pages.destinations.getDestinationIndex);
+                    res.redirect(pages.getDestinationIndex);
                 });
             } else {
                 req.flash('error_messages', 'You are not authorized to do this!');
-                res.redirect(routeConfig.pages.destinations.getDestinationIndex);
+                res.redirect(pages.getDestinationIndex);
             }
         });
     };
@@ -108,7 +108,7 @@ var addRenderParams = function (req, paramHandler, cb) {
             cb(joinParams(popResult, defaultParams));
         });
     } else {
-        modelRepository.paginateModel({}, req.query.page, 5, function (paginationResult) {
+        modelRepository.paginateModel(req.query, req.query.page, 5, function (paginationResult) {
             cb(joinParams(paginationResult, defaultParams));
         });
     }
