@@ -34,16 +34,15 @@ var destinationController = function (routeConfig, middlewareController) {
     var addDestination = function (req, res) {
         middlewareController.checkUserPrivileges(req, function (valid) {
             if (valid) {
-                var newDestination = destinationRepository.addDestination(req.body);
-
-                if (newDestination) {
-                    req.flash('succes_messages', 'Destination has been succesfully saved!');
-                    res.redirect(routeConfig.routes.destinations + '/' + result._id);
-                } else {
-                    req.flash('error_messages', err.message);
-                    res.redirect(routeConfig.pages.destinations.getDestinationIndex);
-                }
-
+                modelRepository.addModel(req.body, function(newDestination){
+                    if (newDestination.hasOwnProperty('result')) {
+                        req.flash('succes_messages', 'Destination has been succesfully saved!');
+                        res.redirect(routeConfig.routes.destinations + '/' + newDestination.result._id);
+                    } else {
+                        req.flash('error_messages', err.message);
+                        res.redirect(routeConfig.pages.destinations.getDestinationIndex);
+                    }
+                });
             } else {
                 req.flash('error_messages', 'You dont have the right privileges');
                 res.redirect(routeConfig.pages.destinations.getDestinationIndex);
@@ -54,7 +53,7 @@ var destinationController = function (routeConfig, middlewareController) {
     // <------------------------------PUT------------------------------>
 
     var editDestinationById = function (req, res) {
-        destinationRepository.editDestinationById(req.params.id, req.body, function (saveResult) {
+        modelRepository.editModelById(req.params.id, req.body, function (saveResult) {
             if (saveResult.result) {
                 res.redirect(routeConfig.routes.destinations + '/' + saveResult.result._id);
             } else {
@@ -69,7 +68,7 @@ var destinationController = function (routeConfig, middlewareController) {
     var deleteDestinationById = function (req, res) {
         middlewareController.checkUserPrivileges(req, function (valid) {
             if (valid) {
-                destinationRepository.deleteDestinationById(req.params.id, function (err) {
+                modelRepository.deleteModelById(req.params.id, function (err) {
                     if (err) {
                         req.flash('error_messages', err);
                     } else {

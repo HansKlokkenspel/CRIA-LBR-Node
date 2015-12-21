@@ -36,11 +36,8 @@ var ModelRepository = function (modelName) {
                 _id: id
             }, function (err, result) {
                 if (result) {
-
-                    for (var key in result) {
-                        if (newModel.hasOwnProperty(key)) {
-                            result[key] = result[key];
-                        }
+                    for (var key in newModel) {
+                        result[key] = newModel[key];
                     }
 
                     result.save(function (err, saveResult) {
@@ -97,7 +94,7 @@ var ModelRepository = function (modelName) {
 var populateModel = function (result, Model, cb) {
     var hydratedResult = Model.hydrate(result);
 
-    if(typeof hydratedResult.getPopulationPath === 'function'){
+    if (typeof hydratedResult.getPopulationPath === 'function') {
         Model.deepPopulate(result, hydratedResult.getPopulationPath(), function (err, popResult) {
             if (!err) {
                 cb({result: popResult});
