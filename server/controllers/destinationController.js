@@ -115,13 +115,22 @@ var addRenderParams = function (req, paramHandler, cb) {
 };
 
 var joinParams = function (result, defaultParams) {
-    console.log(result);
-    params = {
-        destinations: result.docs,
-        pagination: {
+    var destinations = {};
+    var pagination = {};
+
+    if (result.hasOwnProperty('docs')) {
+        destinations = result.docs;
+        pagination = {
             currentPage: result.page,
             totalPageCount: result.pages
-        }
+        };
+    } else {
+        destinations = result.result;
+    }
+
+    params = {
+        destinations: destinations,
+        pagination: pagination
     };
 
     return Object.assign(params, defaultParams);
