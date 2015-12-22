@@ -36,12 +36,12 @@ var destinationController = function (routeConfig, middlewareController) {
     var addDestination = function (req, res) {
         middlewareController.checkUserPrivileges(req, function (valid) {
             if (valid) {
-                modelRepository.addModel(req.body, function (newDestination) {
-                    if (newDestination.hasOwnProperty('result')) {
+                modelRepository.addModel(req.body, function (result) {
+                    if (result.hasOwnProperty('result')) {
                         req.flash('succes_messages', 'Destination has been succesfully saved!');
-                        res.redirect(routeConfig.routes.destinations + '/' + newDestination.result._id);
+                        res.redirect(routeConfig.routes.destinations + '/' + result.result._id);
                     } else {
-                        req.flash('error_messages', err.message);
+                        req.flash('error_messages', result.error.message);
                         res.redirect(pages.getDestinationIndex);
                     }
                 });
@@ -60,7 +60,7 @@ var destinationController = function (routeConfig, middlewareController) {
                 res.redirect(routeConfig.routes.destinations + '/' + saveResult.result._id);
             } else {
                 req.flash('error_messages', saveResult.error.message);
-                res.redirect(pages.getDestinationIndex);
+                res.redirect(req.get('referer'));
             }
         });
     };
@@ -72,7 +72,7 @@ var destinationController = function (routeConfig, middlewareController) {
             if (valid) {
                 modelRepository.deleteModelById(req.params.id, function (err) {
                     if (err) {
-                        req.flash('error_messages', err);
+                        req.flash('error_messages', err.message);
                     } else {
                         req.flash('succes_messages', 'The destination has been succesfully removed!');
                     }

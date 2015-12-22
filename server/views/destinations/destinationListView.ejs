@@ -15,48 +15,49 @@
 <div class="container">
     <div class="row">
         <div class="col col-sm-3">
+            <% if (user && user.role.name === 'Admin') { %>
             <div id="sidebar">
-                <% include ../partials/sidebar %>
+                <% include ../partials/destination/destinationListAdminSidebar %>
             </div>
+            <% } else { %>
+            <div id="sidebar">
+                <% include ../partials/destination/destinationListSidebar %>
+            </div>
+            <% } %>
         </div>
         <div class="col col-sm-9">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="input-group">
-                        <form method="get" action="/destinations" autocomplete="off" class="navbar-search pull-left">
-                            <span class="input-group-btn">
-                                <input type="text" class="form-control" name="name" data-provide="typeahead"
-                                       placeholder="Search for a destination..."/>
-                              <input type="submit" value="Search" class="btn btn-default"/>
-                          </span>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <button><a href="<%= pages.destinations.getAddDestination %>">Add destination</a></button>
-            <ul>
+            <% if(error_messages.length > 0) { %>
+            <% include ../partials/errorMessage %>
+            <% } %>
+
+            <% if(success_messages.length > 0) { %>
+            <% include ../partials/succesMessage %>
+            <% } %>
+
+            <div class="panel panel-default">
                 <% for(var i = 0; i < destinations.length; i++) { %>
-                <li>
+                <div class="panel">
                     <a href="<%= pages.destinations.getDestinationIndex %>/<%= destinations[i]._id %>">
-                        <%= destinations[i].name %>
-                    </a>
-                    <p>
-                        <%= destinations[i].description %>
-                    </p>
-                    <ul>
+                    <div class="panel-body">
+                            <span>
+                                <%= destinations[i].name %>
+                            </span>
+                        <p>
+                            <%= destinations[i].description %>
+                        </p>
                         <% for(var j = 0; j < destinations[i].hotels.length; j++) { %>
-                        <li>
-                            <%= destinations[i].hotels[j].name %>
-                        </li>
-                        <li>
-                            <%= destinations[i].hotels[j].rating %>
-                        </li>
+                        <div>
+                            Name: <%= destinations[i].hotels[j].name %>
+                            Rating: <%= destinations[i].hotels[j].rating %>
+                            <p><%= destinations[i].hotels[j].description %></p>
+                        </div>
                         <% } %>
-                    </ul>
-                </li>
+                    </div>
+                    </a>
+                </div>
                 <% } %>
-            </ul>
-            <% include ../partials/pagination %>
+                <% include ../partials/pagination %>
+            </div>
         </div>
     </div>
 </div>

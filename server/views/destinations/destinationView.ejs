@@ -15,48 +15,51 @@
 <div class="container">
     <div class="row">
         <div class="col col-sm-3">
+            <% if (user && user.role.name === 'Admin') { %>
             <div id="sidebar">
-                <% include ../partials/sidebar %>
+                <% include ../partials/destination/destinationViewAdminSidebar %>
             </div>
+            <% } else { %>
+            <div id="sidebar">
+                <% include ../partials/destination/destinationViewSidebar %>
+            </div>
+            <% } %>
         </div>
         <div class="col col-sm-9">
-            <button><a href="<%= pages.destinations.getDestinationIndex %>/delete/<%= destinations._id %>">Delete
-                    destination</a></button>
-            <p>
-                <%= destinations.description %>
-            </p>
-            <ul>
+            <% if(error_messages.length > 0) { %>
+            <% include ../partials/errorMessage %>
+            <% } %>
+
+            <% if(success_messages.length > 0) { %>
+            <% include ../partials/succesMessage %>
+            <% } %>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading"> <%= destinations.name %></div>
+                <div class="panel-body">
+                    <p><%= destinations.description %></p>
+                </div>
+
                 <% for(var i = 0; i < destinations.hotels.length; i++) { %>
-                <li>
-                    <p><%=destinations.hotels[i].name%></p>
-                    <% for(var j = 0; j < destinations.hotels[i].arrangements.length; j++) { %>
-                    <ul>
-                        <li><%= destinations.hotels[i].arrangements[j].name %></li>
-                        </br>
-                        <li><%= destinations.hotels[i].arrangements[j].description %></li>
-                        </br>
-                        <li> <%= destinations.hotels[i].arrangements[j].price %></li>
-                        </br>
-                        <li><%= destinations.hotels[i].arrangements[j].people %></li>
-                    </ul>
-                    <% } %>
-                </li>
+                <div class="panel">
+                    <div class="panel-body">
+                        <% for(var j = 0; j < destinations.hotels[i].arrangements.length; j++) { %>
+                        <div class="panel">
+                            <div class="panel-body">
+                                Type: <p><%= destinations.hotels[i].arrangements[j].name %></p>
+                                Description: <p><%= destinations.hotels[i].arrangements[j].description %></p>
+                                <div>
+                                    Price: <span> <%= destinations.hotels[i].arrangements[j].price %></span>
+                                    People: <span><%= destinations.hotels[i].arrangements[j].people %></span>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
                 <% } %>
-            </ul>
+            </div>
         </div>
-        <% if(user.role.name === 'Admin'){ %>
-        <form action="/destinations/<%= destinations._id %>" method="post">
-            <fieldset>
-                <label for="name">Name:</label>
-                <input type="text" name="name" placeholder="Enter destination name"/>
-
-                <label for="description">Description:</label>
-                <textarea name="description" placeholder="Enter the description"></textarea>
-
-                <input type="submit" value="Edit destination"/>
-            </fieldset>
-        </form>
-        <% } %>
     </div>
 </div>
 <footer>

@@ -21,10 +21,14 @@ var ModelRepository = function (modelName) {
         }, function (err, result) {
             if (err) {
                 cb({error: err});
-            } else {
+            }
+
+            if(result) {
                 populateModel(result, Model, function (popResult) {
                     cb(popResult);
                 });
+            } else {
+                cb({error: 'no document found!'});
             }
         });
     };
@@ -37,7 +41,9 @@ var ModelRepository = function (modelName) {
             }, function (err, result) {
                 if (result) {
                     for (var key in newModel) {
-                        result[key] = newModel[key];
+                        if (newModel[key]) {
+                            result[key] = newModel[key];
+                        }
                     }
 
                     result.save(function (err, saveResult) {
@@ -56,11 +62,15 @@ var ModelRepository = function (modelName) {
 
     var deleteModelById = function (id, cb) {
         id = new ObjectId(id);
-
+        console.log(id);
         Model.remove({
             _id: id
         }, function (err) {
-            cb({error: err});
+            if(err){
+                cb({error: err});
+            } else {
+                cb({result: 'success!'});
+            }
         });
     };
 

@@ -1,0 +1,38 @@
+<div class="panel">
+    <div class="panel-body">
+        <h3>Operations</h3>
+        <h4><strong>Search</strong></h4>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <form method="get" action="/destinations" autocomplete="off" class="navbar-search pull-left">
+                            <span class="input-group-btn">
+                                <input type="text" class="form-control" name="name" data-provide="typeahead"
+                                       placeholder="Search for a destination..."/>
+                              <input type="submit" value="Go" class="btn btn-default"/>
+                          </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <h4><strong>Add destination</strong></h4>
+        <form action="/destinations/add" method="post">
+            <div>
+                <span>
+                    <label>Name:</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter destination name"/>
+                </span>
+                <span>
+                    <label>Description:</label>
+                    <textarea name="description" class="form-control"
+                              placeholder="Enter the description"></textarea>
+                </span>
+            </div>
+            <div>
+               <span class="input-group-btn">
+                  <input type="submit" value="Add destination" class="btn btn-default"/>
+              </span>
+            </div>
+        </form>
+    </div>
+</div>

@@ -36,6 +36,16 @@ require(configLocation + 'passport/passport')(app);
 
 var routes = routeConfig.routes;
 
+/**
+ * Makes it so variables 'success_messages' and 'error_messages' will be directly passed into the view.
+ * Values for these variables can be supplied through the use of: req.flash('<message_key>', '<message_value>')
+ */
+app.use(function (req, res, next) {
+    res.locals.success_messages = req.flash('success_messages');
+    res.locals.error_messages = req.flash('error_messages');
+    next();
+});
+
 app.use(routes.api, apiRouter);
 app.use(routes.auth, authRouter);
 app.use(routes.admin, adminRouter);
@@ -46,16 +56,6 @@ app.use(routes.destinations, destinationRouter);
 app.set('views', globalConfig.fileLocations.views);
 
 app.set('view engine', 'ejs');
-
-/**
- * Makes it so variables 'success_messages' and 'error_messages' will be directly passed into the view.
- * Values for these variables can be supplied through the use of: req.flash('<message_key>', '<message_value>')
- */
-app.use(function (req, res, next) {
-    res.locals.success_messages = req.flash('success_messages');
-    res.locals.error_messages = req.flash('error_messages');
-    next();
-});
 
 app.get('/', function (req, res) {
     res.render('index', {
