@@ -81,7 +81,7 @@ var ModelRepository = function (modelName) {
         for (var key in newModel) {
             if (model.hasOwnProperty(key)) {
                 newModel[key] = model[key];
-                if (newModel.hasParentPath(key)) {
+                if (typeof newModel.hasParentPath === 'function' && newModel.hasParentPath(key)) {
                     relationShips[key] = model[key];
                 }
             }

@@ -71,7 +71,7 @@ var staticData = function () {
             var country = new Country();
 
             country.name = faker.address.country();
-            country.description = faker.lorem.sentence();
+            country.description = faker.lorem.paragraph();
             country.destinations = generateDestinations(destinationsPerCountry);
 
             countries.push(country);
@@ -91,7 +91,7 @@ var staticData = function () {
             var destination = new Destination();
 
             destination.name = faker.address.state();
-            destination.description = faker.lorem.sentence();
+            destination.description = faker.lorem.paragraph();
             destination.hotels = generateHotels(hotelsPerDestination);
 
             destinations.push(destination);
@@ -107,7 +107,7 @@ var staticData = function () {
             var hotel = new Hotel();
 
             hotel.name = faker.address.country();
-            hotel.description = faker.lorem.sentence();
+            hotel.description = faker.lorem.paragraph();
             hotel.rating = faker.random.number({min: 1.0, max: 10.0});
             hotel.arrangements = generateArrangements();
 
@@ -124,7 +124,7 @@ var staticData = function () {
             var arr = new Arrangement();
 
             arr.name = arrangementList[i].name;
-            arr.description = faker.lorem.sentence();
+            arr.description = faker.lorem.paragraph();
             arr.people = faker.random.number({min: 1, max: 10});
             arr.price = faker.random.number({min: 50, max: 1050});
 

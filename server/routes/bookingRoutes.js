@@ -11,15 +11,12 @@ var router = function(routeConfig, middlewareController) {
   bookingRouter.route('/')
     .get(bookingController.getBookingIndex);
 
-  bookingRouter.route('/add')
-    .get(bookingController.getAddBooking);
-
   bookingRouter.route('/:id')
     .get(bookingController.getBookingById);
 
   // <------------------------------POST------------------------------>
 
-  bookingRouter.route('/add')
+  bookingRouter.route('/add/:hotelId/:arrangementId')
     .post(bookingController.addBooking);
 
   // <------------------------------PUT------------------------------>

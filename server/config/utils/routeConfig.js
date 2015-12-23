@@ -25,10 +25,10 @@ var routeConfig = function () {
         bookings: {
             getBookingIndex: routes.bookings,
             getBookingById: routes.bookings + '/:id',
-            getAddBooking: routes.bookings + '/add',
         },
         destinations: {
             getDestinationIndex: routes.destinations,
+            getDestinationById: routes.destinations + '/:id',
         },
         hotels: {
             getHotelIndex: routes.hotels,
@@ -47,7 +47,6 @@ var routeConfig = function () {
         bookings: {
             getBookingIndex: pages.bookings.getBookingIndex.substring(1) + '/bookingListView',
             getBookingById: pages.bookings.getBookingIndex.substring(1) + '/bookingView',
-            getAddBooking: pages.bookings.getBookingIndex.substring(1) + '/addBookingView',
         },
         destinations: {
             getDestinationIndex: pages.destinations.getDestinationIndex.substring(1) + '/destinationListView',

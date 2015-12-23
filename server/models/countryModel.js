@@ -10,7 +10,7 @@ var CountrySchema = Schema({
     description: {
         type: String,
         required: true,
-        maxlength: 255,
+        maxlength: 2048,
         minlength: 10
     },
     destinations: [{

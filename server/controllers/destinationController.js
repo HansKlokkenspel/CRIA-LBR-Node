@@ -25,7 +25,7 @@ var destinationController = function (routeConfig, middlewareController) {
             if (valid) {
                 destinationRepository.addModel(req.body, function (result) {
                     if (result.hasOwnProperty('result')) {
-                        req.flash('succes_messages', 'Destination has been succesfully saved!');
+                        req.flash('success_messages', 'Destination has been succesfully saved!');
                         res.redirect(routeConfig.routes.destinations + '/' + result.result._id);
                     } else {
                         req.flash('error_messages', result.error.message);

@@ -11,7 +11,7 @@ var ArrangementSchema = Schema({
         type: String,
         required: true,
         minlength: 10,
-        maxlength: 255
+        maxlength: 2048
     },
     price: {
         type: Number,

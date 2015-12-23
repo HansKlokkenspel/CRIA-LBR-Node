@@ -7,13 +7,12 @@ var DestinationSchema = Schema({
     name: {
         type: String,
         required: true,
-        maxlength: 25,
-        minlength: 5
+        maxlength: 100,
     },
     description: {
         type: String,
         required: true,
-        maxlength: 255,
+        maxlength: 2048,
         minlength: 10
     },
     hotels: [{

@@ -5,8 +5,7 @@ var PaymentSchema = Schema({
     type: {
         type: String,
         required: true,
-        maxlength: 25,
-        minlength: 5
+        maxlength: 25
     },
     paid: {
         type: Boolean,

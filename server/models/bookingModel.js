@@ -14,8 +14,7 @@ var BookingSchema = Schema({
     },
     payment: {
         type: Schema.Types.ObjectId,
-        ref: 'Payment',
-        required: true
+        ref: 'Payment'
     },
     people: {
         type: Number,

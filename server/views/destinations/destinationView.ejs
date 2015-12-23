@@ -35,11 +35,11 @@
             <% } %>
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading"><h4><%= destinations.name %> - Arrangements</h4></div>
+                <div class="panel-heading"><h4><%= destinations.name %> - Hotels</h4></div>
                 <div class="panel-body">
                     <p><%= destinations.description %></p>
                 </div>
-
+                 <!--TODO add links to the hotel pages-->
                 <% for(var i = 0; i < destinations.hotels.length; i++) { %>
                 <div class="panel">
                     <div class="panel-body">
@@ -50,9 +50,26 @@
                                 <div class="panel-heading"><h3>Arrangement: <%= destinations.hotels[i].arrangements[j].name %> </h3></div>
                                 <p><%= destinations.hotels[i].arrangements[j].description %></p>
                                 <div>
-                                    Price: <span> <%= destinations.hotels[i].arrangements[j].price %></span>
+                                    Price p.p.: <span> <%= destinations.hotels[i].arrangements[j].price %></span>
                                     People: <span><%= destinations.hotels[i].arrangements[j].people %></span>
                                 </div>
+                                <% if (user && user.role.name !== 'Admin') { %>
+                                    <form action="/bookings/add/<%=destinations.hotels[i]._id%>/<%=destinations.hotels[i].arrangements[j]._id%>" method="post">
+                                        <div>
+                                            <span>
+                                                <label>People:</label>
+                                                <input type="text" class="form-control" name="people" placeholder="Enter amount of people"/>
+                                            </span>
+                                            <input type="hidden" name="hotel" value="<%=destinations.hotels[i]._id%>"/>
+                                            <input type="hidden" name="arrangement" value="<%=destinations.hotels[i].arrangements[j]._id%>"/>
+                                        </div>
+                                        <div>
+                                            <span class="input-group-btn">
+                                                <input type="submit" value="Add destination" class="btn btn-default"/>
+                                            </span>
+                                        </div>
+                                    </form>
+                                <% }%>
                             </div>
                         </div>
                         <% } %>
