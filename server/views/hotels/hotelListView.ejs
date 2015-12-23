@@ -1,1 +1,44 @@
-jemoeder
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body>
+<nav class="navbar navbar-static">
+    <% include ../partials/nav %>
+</nav>
+<header class="masthead">
+    <% include ../partials/header %>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col col-sm-3">
+            <% if (user && user.role.name === 'Admin') { %>
+            <div id="sidebar">
+                <% include ../partials/destination/destinationListAdminSidebar %>
+            </div>
+            <% } else { %>
+            <div id="sidebar">
+                <% include ../partials/destination/destinationListSidebar %>
+            </div>
+            <% } %>
+        </div>
+        <div class="col col-sm-9">
+            <% if(error_messages.length > 0) { %>
+            <% include ../partials/errorMessage %>
+            <% } %>
+
+            <% if(success_messages.length > 0) { %>
+            <% include ../partials/succesMessage %>
+            <% } %>
+        </div>
+    </div>
+</div>
+<footer>
+    <% include ../partials/footer %>
+</footer>
+</body>
+
+</html>

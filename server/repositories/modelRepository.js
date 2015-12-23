@@ -23,7 +23,7 @@ var ModelRepository = function (modelName) {
                 cb({error: err});
             }
 
-            if(result) {
+            if (result) {
                 populateModel(result, Model, function (popResult) {
                     cb(popResult);
                 });
@@ -66,7 +66,7 @@ var ModelRepository = function (modelName) {
         Model.remove({
             _id: id
         }, function (err) {
-            if(err){
+            if (err) {
                 cb({error: err});
             } else {
                 cb({result: 'success!'});
@@ -81,7 +81,7 @@ var ModelRepository = function (modelName) {
         for (var key in newModel) {
             if (model.hasOwnProperty(key)) {
                 newModel[key] = model[key];
-                if(newModel.hasParentPath(key)){
+                if (newModel.hasParentPath(key)) {
                     relationShips[key] = model[key];
                 }
             }
@@ -89,19 +89,12 @@ var ModelRepository = function (modelName) {
 
         newModel.save(function (err, result) {
             if (result) {
-                var objectKeys = Object.keys(relationShips).length;
+                var relationShipCount = Object.keys(relationShips).length;
 
-                for(var relationShip in relationShips){
-                    var repo = require('./modelRepository')(relationShip + 'Model');
-
-                    repo.findModelById(relationShips[relationShip], function(relationResult){
-                        if(modelName === 'hotelModel'){
-                            relationResult.result.hotels.push(result._id);
-                            relationResult.result.save(function(err, destinationResult){
-                                cb({result: result});
-                            });
-                        }
-                    });
+                if(relationShipCount > 0){
+                    newModel.saveParent(relationShips, relationShipCount, result, cb);
+                } else {
+                    cb({result: result});
                 }
             } else {
                 cb({error: err});
@@ -128,7 +121,7 @@ var ModelRepository = function (modelName) {
 
     var paginateModel = function (queryString, currentPage, limit, cb) {
         var query = createQuery(queryString);
-        Model.paginate(query, {page: currentPage , limit: limit}, function (err, paginationResult) {
+        Model.paginate(query, {page: currentPage, limit: limit}, function (err, paginationResult) {
             populateModel(paginationResult.docs, Model, function (pagePopResult) {
                 cb(paginationResult);
             });

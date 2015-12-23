@@ -35,13 +35,20 @@ var HotelSchema = Schema({
 HotelSchema.plugin(deepPopulate);
 HotelSchema.plugin(mongoosePaginate);
 
-HotelSchema.methods.hasParentPath = function(key){
+HotelSchema.methods.hasParentPath = function (key) {
 
     return key === 'destination';
 };
 
-HotelSchema.methods.saveParent = function(parentId){
+HotelSchema.methods.saveParent = function (relationShips, relationShipCount, newHotel, cb) {
+    var repo = require('../repositories/modelRepository')('destinationModel');
 
+    repo.findModelById(relationShips['destination'], function (relationResult) {
+        relationResult.result.hotels.push(newHotel._id);
+        relationResult.result.save(function (err, result) {
+            cb({result: newHotel});
+        });
+    });
 };
 
 module.exports = mongoose.model('Hotel', HotelSchema);
