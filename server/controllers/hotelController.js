@@ -1,50 +1,50 @@
-var destinationRepository = require('../repositories/modelRepository')('destinationModel');
+var hotelRepository = require('../repositories/modelRepository')('hotelModel');
 var paginate = require('express-paginate');
 
-var destinationController = function (routeConfig, middlewareController) {
+var hotelController = function (routeConfig, middlewareController) {
     var paramHandler = require('../config/utils/paramHandler')(routeConfig);
-    var viewsLocation = routeConfig.viewsLocation.destinations;
-    var pages = routeConfig.pages.destinations;
+    var viewsLocation = routeConfig.viewsLocation.hotels;
+    var pages = routeConfig.pages.hotels;
     // <------------------------------GET------------------------------>
-    var getDestinationIndex = function (req, res) {
+    var getHotelIndex = function (req, res) {
         addRenderParams(req, paramHandler, function (params) {
-            res.render(viewsLocation.getDestinationIndex, params);
+            res.render(viewsLocation.getHotelIndex, params);
         });
     };
 
-    var getDestinationById = function (req, res) {
+    var getHotelById = function (req, res) {
         addRenderParams(req, paramHandler, function (params) {
-            res.render(viewsLocation.getDestinationById, params);
+            res.render(viewsLocation.getHotelById, params);
         });
     };
 
     // <------------------------------POST------------------------------>
 
-    var addDestination = function (req, res) {
+    var addHotel = function (req, res) {
         middlewareController.checkUserPrivileges(req, function (valid) {
             if (valid) {
-                destinationRepository.addModel(req.body, function (result) {
+                hotelRepository.addModel(req.body, function (result) {
                     if (result.hasOwnProperty('result')) {
-                        req.flash('succes_messages', 'Destination has been succesfully saved!');
-                        res.redirect(routeConfig.routes.destinations + '/' + result.result._id);
+                        req.flash('succes_messages', 'Hotel has been succesfully saved!');
+                        res.redirect(routeConfig.routes.hotels + '/' + result.result._id);
                     } else {
                         req.flash('error_messages', result.error.message);
-                        res.redirect(pages.getDestinationIndex);
+                        res.redirect(pages.getHotelIndex);
                     }
                 });
             } else {
                 req.flash('error_messages', 'You dont have the right privileges');
-                res.redirect(pages.getDestinationIndex);
+                res.redirect(pages.getHotelIndex);
             }
         });
     };
 
     // <------------------------------PUT------------------------------>
 
-    var editDestinationById = function (req, res) {
-        destinationRepository.editModelById(req.params.id, req.body, function (saveResult) {
+    var editHotelById = function (req, res) {
+        hotelRepository.editModelById(req.params.id, req.body, function (saveResult) {
             if (saveResult.result) {
-                res.redirect(routeConfig.routes.destinations + '/' + saveResult.result._id);
+                res.redirect(routeConfig.routes.hotels + '/' + saveResult.result._id);
             } else {
                 req.flash('error_messages', saveResult.error.message);
                 res.redirect(req.get('referer'));
@@ -54,30 +54,30 @@ var destinationController = function (routeConfig, middlewareController) {
 
 // <------------------------------DELETE------------------------------>
 
-    var deleteDestinationById = function (req, res) {
+    var deleteHotelById = function (req, res) {
         middlewareController.checkUserPrivileges(req, function (valid) {
             if (valid) {
-                destinationRepository.deleteModelById(req.params.id, function (err) {
+                hotelRepository.deleteModelById(req.params.id, function (err) {
                     if (err) {
                         req.flash('error_messages', err.message);
                     } else {
-                        req.flash('succes_messages', 'The destination has been succesfully removed!');
+                        req.flash('succes_messages', 'The hotel has been succesfully removed!');
                     }
-                    res.redirect(pages.getDestinationIndex);
+                    res.redirect(pages.getHotelIndex);
                 });
             } else {
                 req.flash('error_messages', 'You are not authorized to do this!');
-                res.redirect(pages.getDestinationIndex);
+                res.redirect(pages.getHotelIndex);
             }
         });
     };
 
     return {
-        getDestinationIndex: getDestinationIndex,
-        getDestinationById: getDestinationById,
-        addDestination: addDestination,
-        deleteDestinationById: deleteDestinationById,
-        editDestinationById: editDestinationById,
+        getHotelIndex: getHotelIndex,
+        getHotelById: getHotelById,
+        addHotel: addHotel,
+        deleteHotelById: deleteHotelById,
+        editHotelById: editHotelById,
     };
 };
 
@@ -90,36 +90,36 @@ var addRenderParams = function (req, paramHandler, cb) {
     }
 
     if (typeof id !== 'undefined') {
-        destinationRepository.findModelById(id, function (popResult) {
+        hotelRepository.findModelById(id, function (popResult) {
             cb(joinParams(popResult, defaultParams));
         });
     } else {
-        destinationRepository.paginateModel(req.query, req.query.page, 5, function (paginationResult) {
+        hotelRepository.paginateModel(req.query, req.query.page, 5, function (paginationResult) {
             cb(joinParams(paginationResult, defaultParams));
         });
     }
 };
 
 var joinParams = function (result, defaultParams) {
-    var destinations = {};
+    var hotels = {};
     var pagination = {};
 
     if (result.hasOwnProperty('docs')) {
-        destinations = result.docs;
+        hotels = result.docs;
         pagination = {
             currentPage: result.page,
             totalPageCount: result.pages
         };
     } else {
-        destinations = result.result;
+        hotels = result.result;
     }
 
     params = {
-        destinations: destinations,
+        hotels: hotels,
         pagination: pagination
     };
 
     return Object.assign(params, defaultParams);
 };
 
-module.exports = destinationController;
+module.exports = hotelController;

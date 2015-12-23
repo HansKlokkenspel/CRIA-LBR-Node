@@ -76,16 +76,33 @@ var ModelRepository = function (modelName) {
 
     var addModel = function (model, cb) {
         var newModel = new Model();
+        var relationShips = {};
 
         for (var key in newModel) {
             if (model.hasOwnProperty(key)) {
                 newModel[key] = model[key];
+                if(newModel.hasParentPath(key)){
+                    relationShips[key] = model[key];
+                }
             }
         }
 
         newModel.save(function (err, result) {
             if (result) {
-                cb({result: result});
+                var objectKeys = Object.keys(relationShips).length;
+
+                for(var relationShip in relationShips){
+                    var repo = require('./modelRepository')(relationShip + 'Model');
+
+                    repo.findModelById(relationShips[relationShip], function(relationResult){
+                        if(modelName === 'hotelModel'){
+                            relationResult.result.hotels.push(result._id);
+                            relationResult.result.save(function(err, destinationResult){
+                                cb({result: result});
+                            });
+                        }
+                    });
+                }
             } else {
                 cb({error: err});
             }
@@ -111,7 +128,7 @@ var ModelRepository = function (modelName) {
 
     var paginateModel = function (queryString, currentPage, limit, cb) {
         var query = createQuery(queryString);
-        Model.paginate(query, {page: currentPage /*req.query.page*/, limit: limit}, function (err, paginationResult) {
+        Model.paginate(query, {page: currentPage , limit: limit}, function (err, paginationResult) {
             populateModel(paginationResult.docs, Model, function (pagePopResult) {
                 cb(paginationResult);
             });

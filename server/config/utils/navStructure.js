@@ -11,6 +11,9 @@ var navStructure = function(routes, pages) {
   }, {
     Link: routes.admin,
     Text: 'Admin',
+  }, {
+    Link: routes.hotels,
+    Text: 'Hotels',
   }, ];
 
   var dropdown = [{

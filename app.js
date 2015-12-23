@@ -20,6 +20,7 @@ var authRouter = require(globalRoutes + 'authRoutes')(routeConfig, middlewareCon
 var userRouter = require(globalRoutes + 'userRoutes')(routeConfig, middlewareController);
 var bookingRouter = require(globalRoutes + 'bookingRoutes')(routeConfig, middlewareController);
 var destinationRouter = require(globalRoutes + 'destinationRoutes')(routeConfig, middlewareController);
+var hotelRouter = require(globalRoutes + 'hotelRoutes')(routeConfig, middlewareController);
 
 var port = process.env.PORT || 8000;
 
@@ -52,6 +53,7 @@ app.use(routes.admin, adminRouter);
 app.use(routes.profile, userRouter);
 app.use(routes.bookings, bookingRouter);
 app.use(routes.destinations, destinationRouter);
+app.use(routes.hotels, hotelRouter);
 
 app.set('views', globalConfig.fileLocations.views);
 
