@@ -1,11 +1,10 @@
 var destinationRepository = require('../repositories/modelRepository')('destinationModel');
-var paginate = require('express-paginate');
 
 var destinationController = function (routeConfig, middlewareController) {
     var paramHandler = require('../config/utils/paramHandler')(routeConfig);
     var viewsLocation = routeConfig.viewsLocation.destinations;
     var pages = routeConfig.pages.destinations;
-    // <------------------------------GET------------------------------>
+    // <------------------------------GET------------------------------>1
     var getDestinationIndex = function (req, res) {
         addRenderParams(req, paramHandler, function (params) {
             res.render(viewsLocation.getDestinationIndex, params);
@@ -47,7 +46,7 @@ var destinationController = function (routeConfig, middlewareController) {
                 res.redirect(routeConfig.routes.destinations + '/' + saveResult.result._id);
             } else {
                 req.flash('error_messages', saveResult.error.message);
-                res.redirect(req.get('referer'));
+                res.redirect(req.get('referrer'));
             }
         });
     };
@@ -114,7 +113,7 @@ var joinParams = function (result, defaultParams) {
         destinations = result.result;
     }
 
-    params = {
+    var params = {
         destinations: destinations,
         pagination: pagination
     };

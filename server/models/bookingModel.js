@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
+var mongoosePaginate = require('mongoose-paginate');
 var Schema = mongoose.Schema;
 
 var BookingSchema = Schema({
@@ -22,5 +24,13 @@ var BookingSchema = Schema({
         required: true
     }
 });
+
+BookingSchema.methods.getPopulationPath = function(){
+    return 'hotel arrangement payment';
+};
+
+
+BookingSchema.plugin(deepPopulate);
+BookingSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Booking', BookingSchema);

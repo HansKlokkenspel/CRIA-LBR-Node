@@ -2,30 +2,63 @@
 <html lang="en">
 
 <head>
-	<% include ../partials/head %>
+    <% include ../partials/head %>
 </head>
 
 <body>
-	<nav class="navbar navbar-static">
-		<% include ../partials/nav %>
-	</nav>
-	<header class="masthead">
-		<% include ../partials/header %>
-	</header>
-	<div class="container">
-		<div class="row">
-			<div class="col col-sm-3">
-				<div id="sidebar">
-					<% include ../partials/sidebar %>
-				</div>
-			</div>
-			<div class="col col-sm-9">
-			</div>
-		</div>
-	</div>
-	<footer>
-		<% include ../partials/footer %>
-	</footer>
+<nav class="navbar navbar-static">
+    <% include ../partials/nav %>
+</nav>
+<header class="masthead">
+    <% include ../partials/header %>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col col-sm-3">
+            <% if (user && user.role.name === 'Admin') { %>
+            <div id="sidebar">
+                <% include ../partials/booking/bookingListAdminSidebar %>
+            </div>
+            <% } else { %>
+            <div id="sidebar">
+                <% include ../partials/booking/bookingListSidebar %>
+            </div>
+            <% } %>
+        </div>
+        <div class="col col-sm-9">
+            <% if(error_messages.length > 0) { %>
+            <% include ../partials/errorMessage %>
+            <% } %>
+
+            <% if(success_messages.length > 0) { %>
+            <% include ../partials/succesMessage %>
+            <% } %>
+            <div class="panel panel-default">
+                <% for(var i = 0; i < bookings.length; i++) { %>
+                <div class="panel">
+                    <a href="<%= pages.bookings.getBookingIndex %>/<%= bookings[i]._id %>">
+                        <div class="panel-body">
+                            <span>
+                                <%= bookings[i].people %>
+                            </span>
+							<span>
+								<%= bookings[i].arrangement %>
+							</span>
+							<span>
+                                <%= bookings[i].hotel %>
+							</span>
+                        </div>
+                    </a>
+                </div>
+                <% } %>
+                <% include ../partials/pagination %>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <% include ../partials/footer %>
+</footer>
 </body>
 
 </html>
