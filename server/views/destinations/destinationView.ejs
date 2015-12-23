@@ -60,6 +60,7 @@
                                                 <label>People:</label>
                                                 <input type="text" class="form-control" name="people" placeholder="Enter amount of people"/>
                                             </span>
+                                            <input type="hidden" name="user" value="<%=user._id%>"/>
                                             <input type="hidden" name="hotel" value="<%=destinations.hotels[i]._id%>"/>
                                             <input type="hidden" name="arrangement" value="<%=destinations.hotels[i].arrangements[j]._id%>"/>
                                         </div>

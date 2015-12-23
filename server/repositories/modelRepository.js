@@ -1,6 +1,4 @@
 var ObjectId = require('mongodb').ObjectID;
-var Destination = require('../models/destinationModel');
-var User = require('../models/userModel');
 
 var ModelRepository = function (modelName) {
     var Model = require('../models/' + modelName + '');
@@ -91,7 +89,7 @@ var ModelRepository = function (modelName) {
             if (result) {
                 var relationShipCount = Object.keys(relationShips).length;
 
-                if(relationShipCount > 0){
+                if (relationShipCount > 0) {
                     newModel.saveParent(relationShips, relationShipCount, result, cb);
                 } else {
                     cb({result: result});
@@ -122,17 +120,25 @@ var ModelRepository = function (modelName) {
     var paginateModel = function (queryString, currentPage, limit, cb) {
         var query = createQuery(queryString);
         Model.paginate(query, {page: currentPage, limit: limit}, function (err, paginationResult) {
-            populateModel(paginationResult.docs, Model, function (pagePopResult) {
-                cb(paginationResult);
-            });
+            if (paginationResult) {
+                populateModel(paginationResult.docs, Model, function (pagePopResult) {
+                    cb(paginationResult);
+                });
+            } else {
+                cb({error: err});
+            }
         });
     };
 
     var createQuery = function (queryString) {
         var query = {};
+        var objectIdRegEx = /^[a-f\d]{24}$/i;
 
         for (var key in queryString) {
-            if (key in Model) {
+            if (objectIdRegEx.test(queryString[key])) {
+                console.log('creating object id!');
+                query[key] = new ObjectId(queryString[key]);
+            } else if (key !== 'page') {
                 query[key] = queryString[key];
             }
         }

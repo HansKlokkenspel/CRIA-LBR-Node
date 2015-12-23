@@ -7,13 +7,13 @@ var bookingController = function (routeConfig, middlewareController) {
 
     // <------------------------------GET------------------------------>
     var getBookingIndex = function (req, res) {
-        addRenderParams(req, paramHandler, function (params) {
+        addRenderParams(req, res, paramHandler, function (params) {
             res.render(viewsLocation.getBookingIndex, params);
         });
     };
 
     var getBookingById = function (req, res) {
-        addRenderParams(req, paramHandler, function (params) {
+        addRenderParams(req, res, paramHandler, function (params) {
             res.render(viewsLocation.getBookingById, params);
         });
     };
@@ -67,9 +67,13 @@ var bookingController = function (routeConfig, middlewareController) {
     };
 };
 
-var addRenderParams = function (req, paramHandler, cb) {
+var addRenderParams = function (req, res, paramHandler, cb) {
     var id = req.params.id;
     var defaultParams = paramHandler.getDefaultParams(req);
+
+    if(req.user.role.name !== 'Admin'){
+        req.query.user = req.user._id;
+    }
 
     if (!req.query.page) {
         req.query.page = 1;
@@ -81,7 +85,12 @@ var addRenderParams = function (req, paramHandler, cb) {
         });
     } else {
         bookingRepository.paginateModel(req.query, req.query.page, 5, function (paginationResult) {
-            cb(joinParams(paginationResult, defaultParams));
+            if(!paginationResult.hasOwnProperty('error')){
+                cb(joinParams(paginationResult, defaultParams));
+            } else {
+                req.flash('error_messages', paginationResult.error.message);
+                res.redirect('/bookings');
+            }
         });
     }
 };

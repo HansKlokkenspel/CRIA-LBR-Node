@@ -4,6 +4,11 @@ var mongoosePaginate = require('mongoose-paginate');
 var Schema = mongoose.Schema;
 
 var BookingSchema = Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     hotel: {
         type: Schema.Types.ObjectId,
         ref: 'Hotel',
