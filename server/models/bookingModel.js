@@ -14,6 +14,14 @@ var BookingSchema = Schema({
         ref: 'Arrangement',
         required: true
     },
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    is_paid: {
+        type: Boolean,
+        default: false
+    },
     payment: {
         type: Schema.Types.ObjectId,
         ref: 'Payment'

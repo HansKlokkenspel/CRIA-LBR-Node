@@ -22,12 +22,12 @@ var router = function(routeConfig, middlewareController) {
   // <------------------------------PUT------------------------------>
 
   bookingRouter.route('/:id')
-    .put(bookingController.editBookingById);
+    .post(bookingController.editBookingById);
 
   // <------------------------------DELETE------------------------------>
 
-  bookingRouter.route('/:id')
-    .delete(bookingController.deleteBookingById);
+  bookingRouter.route('/delete/:id')
+    .get(bookingController.deleteBookingById);
 
   return bookingRouter;
 };

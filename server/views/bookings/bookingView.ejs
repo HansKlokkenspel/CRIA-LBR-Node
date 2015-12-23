@@ -2,49 +2,66 @@
 <html lang="en">
 
 <head>
-	<% include ../partials/head %>
+    <% include ../partials/head %>
 </head>
 
 <body>
 <nav class="navbar navbar-static">
-	<% include ../partials/nav %>
+    <% include ../partials/nav %>
 </nav>
 <header class="masthead">
-	<% include ../partials/header %>
+    <% include ../partials/header %>
 </header>
 <div class="container">
-	<div class="row">
-		<div class="col col-sm-3">
-			<% if (user && user.role.name === 'Admin') { %>
-			<div id="sidebar">
-				<% include ../partials/destination/destinationViewAdminSidebar %>
-			</div>
-			<% } else { %>
-			<div id="sidebar">
-				<% include ../partials/destination/destinationViewSidebar %>
-			</div>
-			<% } %>
-		</div>
-		<div class="col col-sm-9">
-			<% if(error_messages.length > 0) { %>
-			<% include ../partials/errorMessage %>
-			<% } %>
+    <div class="row">
+        <div class="col col-sm-3">
+            <% if (user && user.role.name === 'Admin') { %>
+            <div id="sidebar">
+                <% include ../partials/booking/bookingViewAdminSidebar %>
+            </div>
+            <% } else { %>
+            <div id="sidebar">
+                <% include ../partials/booking/bookingViewSidebar %>
+            </div>
+            <% } %>
+        </div>
+        <div class="col col-sm-9">
+            <% if(error_messages.length > 0) { %>
+            <% include ../partials/errorMessage %>
+            <% } %>
 
-			<% if(success_messages.length > 0) { %>
-			<% include ../partials/succesMessage %>
-			<% } %>
-			<div class="panel panel-default">
-				<!-- Default panel contents -->
-				<div class="panel-heading"><h4>Bookings</h4></div>
-				<div class="panel-body">
-					<p><%= destinations.description %></p>
-				</div>
-			</div>
-		</div>
-	</div>
+            <% if(success_messages.length > 0) { %>
+            <% include ../partials/succesMessage %>
+            <% } %>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading"><h4>Booking - <%= bookings.created_at %></h4></div>
+                <div class="panel-body">
+                    <% if(!bookings.is_paid) { %>
+                    <div>
+                        <span>Your bill has not yet been paid!</span>
+                        <div>
+                            People: <%= bookings.people %>
+                            Price p. p. : <%= bookings.arrangement.price %>
+                            Total:
+                            <% bookings.arrangement.price * bookings.people %>
+                        </div>
+                        <form action="/bookings/<%=bookings._id%>" method="post">
+                            <input type="hidden" name="is_paid" value="true"/>
+                                <span class="input-group-btn">
+                                  <input type="submit" value="Pay up" class="btn btn-default"/>
+                              </span>
+                        </form>
+                    </div>
+                    <% } %>
+                    <p><%= bookings.people %></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <footer>
-	<% include ../partials/footer %>
+    <% include ../partials/footer %>
 </footer>
 </body>
 
