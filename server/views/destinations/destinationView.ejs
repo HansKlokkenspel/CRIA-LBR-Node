@@ -35,7 +35,7 @@
             <% } %>
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading"> <%= destinations.name %></div>
+                <div class="panel-heading"><h4><%= destinations.name %> - Arrangements</h4></div>
                 <div class="panel-body">
                     <p><%= destinations.description %></p>
                 </div>
@@ -43,11 +43,12 @@
                 <% for(var i = 0; i < destinations.hotels.length; i++) { %>
                 <div class="panel">
                     <div class="panel-body">
+                        <div class="panel-heading"><h2>Hotel the <%=destinations.hotels[i].name%></h2></div>
                         <% for(var j = 0; j < destinations.hotels[i].arrangements.length; j++) { %>
                         <div class="panel">
                             <div class="panel-body">
-                                Type: <p><%= destinations.hotels[i].arrangements[j].name %></p>
-                                Description: <p><%= destinations.hotels[i].arrangements[j].description %></p>
+                                <div class="panel-heading"><h3>Arrangement: <%= destinations.hotels[i].arrangements[j].name %> </h3></div>
+                                <p><%= destinations.hotels[i].arrangements[j].description %></p>
                                 <div>
                                     Price: <span> <%= destinations.hotels[i].arrangements[j].price %></span>
                                     People: <span><%= destinations.hotels[i].arrangements[j].people %></span>

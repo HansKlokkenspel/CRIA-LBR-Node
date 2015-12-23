@@ -11,9 +11,6 @@ var router = function(routeConfig, middlewareController) {
   destinationRoutes.route('/')
     .get(destinationController.getDestinationIndex);
 
-  destinationRoutes.route('/add')
-    .get(destinationController.getAddDestination);
-
   destinationRoutes.route('/:id')
     .get(destinationController.getDestinationById);
 

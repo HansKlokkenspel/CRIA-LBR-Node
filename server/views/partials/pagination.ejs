@@ -1,10 +1,10 @@
 <ul class="pagination">
-    <% for(var i = 1; i <= pagination.totalPageCount; i++) { %>
-    <% if (i === pagination.currentPage) { %>
+    <% for(var i = 1; i <= pagination.totalPageCount; ++i) { %>
+    <% if (i == pagination.currentPage) { %>
     <li class="active">
         <a href="<%= pages.destinations.getDestinationIndex %>?page=<%= i %>"><%= i %></a>
     </li>
-    <% } if(i !== pagination.currentPage) { %>
+    <% } else { %>
     <li>
         <a href="<%= pages.destinations.getDestinationIndex %>?page=<%= i %>"><%= i %></a>
     </li>

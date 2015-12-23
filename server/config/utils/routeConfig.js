@@ -28,7 +28,6 @@ var routeConfig = function() {
     },
     destinations: {
       getDestinationIndex: routes.destinations,
-      getAddDestination: routes.destinations + '/add',
     },
     admin: routes.admin + '/adminPanel',
   };
@@ -49,7 +48,6 @@ var routeConfig = function() {
     destinations: {
       getDestinationIndex: pages.destinations.getDestinationIndex.substring(1) + '/destinationListView',
       getDestinationById: pages.destinations.getDestinationIndex.substring(1) + '/destinationView',
-      getAddDestination: pages.destinations.getDestinationIndex.substring(1) + '/destinationAddView',
     },
     admin: pages.admin.substring(1),
   };

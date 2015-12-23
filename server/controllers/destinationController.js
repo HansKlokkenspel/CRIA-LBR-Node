@@ -19,18 +19,6 @@ var destinationController = function (routeConfig, middlewareController) {
         });
     };
 
-    var getAddDestination = function (req, res) {
-        middlewareController.checkUserPrivileges(req, function (valid) {
-            if (valid) {
-                res.render(viewsLocation.getAddDestination,
-                    paramHandler.getDefaultParams(req));
-            } else {
-                req.flash('error_messages', 'You are not an admin!');
-                res.redirect(pages.getDestinationIndex);
-            }
-        });
-    };
-
     // <------------------------------POST------------------------------>
 
     var addDestination = function (req, res) {
@@ -89,7 +77,6 @@ var destinationController = function (routeConfig, middlewareController) {
         getDestinationIndex: getDestinationIndex,
         getDestinationById: getDestinationById,
         addDestination: addDestination,
-        getAddDestination: getAddDestination,
         deleteDestinationById: deleteDestinationById,
         editDestinationById: editDestinationById,
     };
