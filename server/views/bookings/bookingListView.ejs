@@ -37,17 +37,35 @@
                 <% for(var i = 0; i < bookings.length; i++) { %>
                 <div class="panel">
                     <a href="<%= pages.bookings.getBookingIndex %>/<%= bookings[i]._id %>">
-                        <div class="panel-body">
+                            <div class="panel-body">
                             <span>
-                                <%= bookings[i].people %>
+                                <%= bookings[i].created_at %>
                             </span>
-							<span>
-								<%= bookings[i].arrangement %>
-							</span>
-							<span>
-                                <%= bookings[i].hotel %>
-							</span>
-                        </div>
+                                <div class="panel">
+                                    <div class="panel-body">
+                                    <span>
+                                        Arrangement: <%= bookings[i].arrangement.name %>
+                                    </span>
+                                        <p>
+                                            description: <%= bookings[i].arrangement.description %>
+                                        </p>
+                                        Arrangement for: <%= bookings[i].people %> people
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-body">
+                                    <span>
+                                        Hotel: <%= bookings[i].hotel.name %>
+                                    </span>
+                                        <p>
+                                            Description: <%= bookings[i].hotel.description %>
+                                        </p>
+                                        <p>
+                                            Rating: <%= bookings[i].hotel.rating %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                     </a>
                 </div>
                 <% } %>
