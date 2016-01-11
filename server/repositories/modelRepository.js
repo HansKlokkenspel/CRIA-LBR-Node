@@ -11,6 +11,14 @@ var ModelRepository = function (modelName) {
         });
     };
 
+    var findModelsByQuery = function(query, cb){
+        Model.find(query, function(err, result){
+            populateModel(result, Model, function (popResult) {
+                cb(popResult);
+            });
+        });
+    };
+
     var findModelById = function (id, cb) {
         id = new ObjectId(id);
 
@@ -146,14 +154,14 @@ var ModelRepository = function (modelName) {
         return query;
     };
 
-    var findCount = function(field){
+    var findCount = function (field, cb) {
         Model.aggregate(
-            { $group:
-            { _id: '$hotel', total_bookings: { $sum: 1 } }
+            {
+                $group: {_id: '$' + field + '', total: {$sum: 1}}
             },
             function (err, res) {
                 if (err) return handleError(err);
-                console.log(res);
+                cb(res);
             }
         );
     };
@@ -167,7 +175,8 @@ var ModelRepository = function (modelName) {
         populateModel: populateModel,
         paginateModel: paginateModel,
         createQuery: createQuery,
-        findCount: findCount
+        findCount: findCount,
+        findModelsByQuery: findModelsByQuery
     };
 };
 
