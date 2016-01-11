@@ -146,6 +146,18 @@ var ModelRepository = function (modelName) {
         return query;
     };
 
+    var findCount = function(field){
+        Model.aggregate(
+            { $group:
+            { _id: '$hotel', total_bookings: { $sum: 1 } }
+            },
+            function (err, res) {
+                if (err) return handleError(err);
+                console.log(res);
+            }
+        );
+    };
+
     return {
         findModels: findModels,
         findModelById: findModelById,
@@ -154,7 +166,8 @@ var ModelRepository = function (modelName) {
         addModel: addModel,
         populateModel: populateModel,
         paginateModel: paginateModel,
-        createQuery: createQuery
+        createQuery: createQuery,
+        findCount: findCount
     };
 };
 

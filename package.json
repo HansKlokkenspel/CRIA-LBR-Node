@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.0",
@@ -26,6 +27,7 @@
     "mongoose": "^4.2.9",
     "mongoose-deep-populate": "^2.0.3",
     "mongoose-paginate": "^5.0.0",
+    "node-bcrypt": "0.0.1",
     "passport": "^0.3.2",
     "passport-facebook": "^2.0.0",
     "passport-google-oauth": "^0.2.0",

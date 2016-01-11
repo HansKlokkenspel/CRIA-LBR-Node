@@ -14,17 +14,6 @@
 </header>
 <div class="container">
     <div class="row">
-        <div class="col col-sm-3">
-            <% if (user && user.role.name === 'Admin') { %>
-            <div id="sidebar">
-                <% include ./partials/adminSidebar %>
-            </div>
-            <% } else { %>
-            <div id="sidebar">
-                <% include ./partials/sidebar %>
-            </div>
-            <% } %>
-        </div>
         <div class="col col-sm-9">
             <% if(error_messages.length > 0) { %>
                 <% include ./partials/errorMessage %>
